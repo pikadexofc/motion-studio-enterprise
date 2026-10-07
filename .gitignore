@@ -9,7 +9,9 @@ READY_TO_POST/
 render-tests/*.mp4
 render-tests/*.wav
 render-tests/*.png
+render-tests/*.json
 render-tests/desktop.ini
+render-tests/.tmp-frames*
 render-tests/snapshots/
 render-tests/brag-preview/
 render-tests/first-frames/
