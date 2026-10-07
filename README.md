@@ -74,14 +74,52 @@ node tools/autonomous_workflow.js --brand examples/brands/apexcloud-ai.json --ou
 
 ### 3. Run the Comprehensive Test Suite
 ```bash
-# Runs determinism, render pipeline, visual QA, reel determinism, and multi-agent workflow tests
+# Runs all 7 test suites: determinism, render pipeline, visual QA, reels, reel determinism, multi-agent workflow, and production pipeline
 npm test
+
+# Run the dedicated motion production pipeline tests
+npm run test:pipeline
 ```
 
-### 4. Render Headless 60 FPS MP4 Video
+### 4. Interactive Live Preview Studio (Zero-Render Scrubber)
 ```bash
-node scripts/render.js --scene examples/compiled/apexcloud-ai-launch/index.html --output render-tests/apexcloud-ai.mp4 --fps 60 --duration 20.0 --width 1080 --height 1920
+# Launches the local 60 FPS player with timeline scrubber, audio sync, and speed controls
+npm run preview
+# Open http://localhost:3333 in your browser
 ```
+
+### 5. High-Speed Parallel Video Rendering
+```bash
+# Renders 300 frames concurrently across multi-core Chrome workers (~75s turnaround)
+npm run render:parallel
+```
+
+### 6. Autonomous 95% Quality Critic Agent
+```bash
+# Audits scene against 100-point rubric (density, living UI truth, typography, optical depth, SFX sync)
+npm run critic
+```
+
+### 7. Export to OpenCut Multi-Track Video Editor
+```bash
+# Exports project to OpenCut-compatible JSON (main video, overlays, multi-track audio)
+npm run export:opencut
+```
+
+---
+
+## Production Pipeline Tools & Capabilities
+
+| Script / Tool | Command | Description |
+| :--- | :--- | :--- |
+| **`scripts/render_parallel.js`** | `npm run render:parallel` | Multi-core parallel chunk renderer delivering 5x speedup over sequential capture. |
+| **`scripts/preview_studio.js`** | `npm run preview` | Instant 60 FPS player with sub-frame scrubbing, frame stepping (`[` and `]`), and Web Audio sync. |
+| **`scripts/critic_agent.js`** | `npm run critic` | Autonomous 95% motion critic evaluating hook density, living UI truth, optics, and SFX timing. |
+| **`scripts/export_opencut.js`** | `npm run export:opencut` | Interoperability exporter for [OpenCut](https://github.com/opencut-app/opencut) NLE project timelines. |
+| **`scripts/verify_first_frame.js`** | `node scripts/verify_first_frame.js` | Enforces the "Law of First Frame Perfection" (presentation-grade static layout at $t=0.0\text{s}$). |
+| **`scripts/generate_voiceover.js`** | `node scripts/generate_voiceover.js` | ElevenLabs text-to-speech integration with curated voice personas (Liam, Brian, Emily). |
+| **`scripts/sound_designer.js`** | `node scripts/sound_designer.js` | Master audio mixer compiling micro-timed SFX cues and ducked background music via FFmpeg. |
+| **`scripts/image_asset_manager.js`** | `node scripts/image_asset_manager.js` | Dual-Tier AI image generation pipeline (Native + Browser Gemini/ChatGPT) with Master 4K Cinematic Vibe Prompt. |
 
 ---
 
@@ -106,14 +144,22 @@ motion-studio/
 │   └── engine/
 │       ├── renderer.js                   # Headless Chrome + FFmpeg pipe
 │       └── inspector.js                  # Computer vision snapshot inspector
+├── scripts/
+│   ├── render_parallel.js                # High-speed multi-worker parallel renderer
+│   ├── preview_studio.js                 # Live 60fps web player with scrubber & audio
+│   ├── critic_agent.js                   # 95% Quality Critic Agent
+│   ├── export_opencut.js                 # OpenCut multi-track project exporter
+│   ├── verify_first_frame.js             # First-frame static HTML quality gate
+│   ├── generate_voiceover.js             # ElevenLabs voiceover generation service
+│   ├── sound_designer.js                 # SFX cue sheet compiler & audio mixer
+│   └── image_asset_manager.js            # Dual-tier image generator & vibe prompt templates
 ├── examples/
-│   ├── brands/
-│   │   └── apexcloud-ai.json             # Example high-tech SaaS company intake
-│   └── compiled/
-│       └── apexcloud-ai-launch/          # Compiled 100% approved composition
-├── tools/
-│   ├── autonomous_workflow.js            # CLI runner for autonomous multi-agent loop
-│   └── qa_feedback_loop.py               # Shining Technologies 5-gate visual QA
+│   ├── compiled/
+│   │   └── focusflow-brag-launch/        # Living software launch video (FocusFlow)
+│   └── brands/
+│       └── apexcloud-ai.json             # Example high-tech SaaS company intake
 └── tests/
-    └── autonomous-workflow.test.js       # Multi-agent loop & 95% gate unit tests
+    ├── motion-production-pipeline.test.js# Full pipeline integration tests
+    ├── autonomous-workflow.test.js       # Multi-agent loop & 95% gate unit tests
+    └── determinism.test.js               # Frame determinism verification
 ```

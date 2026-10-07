@@ -4,12 +4,17 @@
   "description": "AI-driven capability-based deterministic motion graphics SaaS engine",
   "type": "module",
   "scripts": {
-    "test": "node tests/determinism.test.js && node tests/render-pipeline.test.js && node tests/visual-qa.test.js && node tests/reels.test.js && node tests/reel-determinism.test.js && node tests/autonomous-workflow.test.js",
+    "test": "node tests/determinism.test.js && node tests/render-pipeline.test.js && node tests/visual-qa.test.js && node tests/reels.test.js && node tests/reel-determinism.test.js && node tests/autonomous-workflow.test.js && node tests/motion-production-pipeline.test.js",
     "test:agents": "node tests/autonomous-workflow.test.js",
+    "test:pipeline": "node tests/motion-production-pipeline.test.js",
     "workflow": "node tools/autonomous_workflow.js",
+    "preview": "node scripts/preview_studio.js",
+    "critic": "node scripts/critic_agent.js",
+    "render:parallel": "node scripts/render_parallel.js",
     "render:2d": "node scripts/render.js --scene examples/2d-brand-launch/index.html --output render-tests/2d-brand-launch.mp4 --fps 60 --duration 3",
     "render:3d": "node scripts/render.js --scene examples/3d-procedural-stage/index.html --output render-tests/3d-procedural-stage.mp4 --fps 60 --duration 3",
-    "inspect": "node scripts/inspect.js --snapshots render-tests/snapshots"
+    "inspect": "node scripts/inspect.js --snapshots render-tests/snapshots",
+    "export:opencut": "node scripts/export_opencut.js"
   },
   "dependencies": {
     "gsap": "3.15.0",
