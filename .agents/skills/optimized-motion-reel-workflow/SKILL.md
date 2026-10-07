@@ -65,6 +65,34 @@ When a scene requires bespoke visual imagery—such as 3D hardware device mockup
   - Extract the generated high-resolution image asset directly from the browser DOM or download it into `assets/images/` or the scene directory.
 - All generated images undergo preflight validation (`ImageAssetManager.prototype.verifyAsset`) before being bound into the first-frame HTML composition.
 
+### Master Cinematic Realism Vibe Prompt (Image-to-Image / Asset Enhancement)
+When taking any base photo, 3D render, customer testimonial, or UI mockup and upgrading it to high-end cinematic realism, use this master directive:
+```text
+Enhance the provided image into an emotionally powerful, cinematic, ultra-realistic 4K photograph while preserving the existing design, layout, composition, subject placement, and intent exactly.
+
+Inject extraordinary positive emotion, warmth, human connection, and cinematic intensity. Make the image feel like an unforgettable frame from a high-end film, with breathtaking composition, dynamic perspective, layered depth, rich texture, authentic imperfections, and refined cinematic colour grading.
+
+Keep the primary subject crystal-clear and tack-sharp. NO motion blur, softness, ghosting, or focus loss on the primary subject. Subtle motion blur is allowed only on appropriate background or secondary moving elements.
+
+Introduce subtle real-world photographic imperfections: slight handheld character, natural micro-movement, realistic texture variation, gentle optical falloff, subtle photographic grain, believable environmental imperfections, and candid visual energy. Keep everything restrained and physically plausible.
+
+Use subtle sunlight, restrained bloom, shallow foreground/background depth blur, directional key light from the upper left, and slightly deeper shadows on the opposite side for dimensional cinematic contrast.
+
+Naturally warm skin tones. Enhance eye sharpness, iris detail, catchlights, micro-contrast, pores, beard detail, and skin texture while preserving authentic anatomy.
+
+Preserve every important visual detail exactly. Do not redesign, reposition, simplify, restructure, or add unnecessary elements. EDIT ONLY.
+
+Upscale and refine the final result to true 4K Ultra HD while preserving natural photographic detail.
+
+Final result: emotionally extraordinary, lively, cinematic, candid, physically believable, professionally photographed, and unmistakably real rather than AI-perfect.
+```
+
+### Optical Rules Applied to Motion Scenes (Anti-AI Plasticity):
+1. **Directional Key Light**: Always illuminate UI cards and 3D assets with soft key light from the upper-left (`top: -10%, left: -10%`), casting directional ambient occlusion shadows downward and rightward.
+2. **Subtle 35mm Photographic Grain**: Apply an SVG micro-noise overlay (`opacity: 0.035; mix-blend-mode: overlay`) over dark backgrounds (`#05070B`) to kill gradient banding and eliminate synthetic digital flatness.
+3. **Tack-Sharp Primary Subject**: Never apply global blurs or muddy filters to the hero interface or typography. Only background particles, ambient glows, or defocused accessory cards receive shallow depth blur.
+4. **Preserve Geometry Exactly (EDIT ONLY)**: Never let generative enhancements alter established UI button positions, typography hierarchy, or data points.
+
 ---
 
 ## Stage 2: First-Frame Static HTML Composition Mandate

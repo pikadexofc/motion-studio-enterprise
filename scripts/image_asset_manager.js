@@ -77,9 +77,63 @@ export class ImageAssetManager {
       case 'abstract_mesh_background':
         return `Dark abstract digital mesh wallpaper, deep cosmic obsidian #05070B background with soft flowing radial gradients in ${accentColor} and deep indigo, subtle micro-grain film texture, smooth anti-aliased organic curves, expansive negative space for typography overlay, 8k wallpaper, aspect ratio 9:16.`;
 
+      case 'cinematic_photorealistic_enhancer':
+        return `Enhance the provided image into an emotionally powerful, cinematic, ultra-realistic 4K photograph while preserving the existing design, layout, composition, subject placement, and intent exactly.
+
+Inject extraordinary positive emotion, warmth, human connection, and cinematic intensity. Make the image feel like an unforgettable frame from a high-end film, with breathtaking composition, dynamic perspective, layered depth, rich texture, authentic imperfections, and refined cinematic colour grading.
+
+Keep the primary subject crystal-clear and tack-sharp. NO motion blur, softness, ghosting, or focus loss on the primary subject. Subtle motion blur is allowed only on appropriate background or secondary moving elements.
+
+Introduce subtle real-world photographic imperfections: slight handheld character, natural micro-movement, realistic texture variation, gentle optical falloff, subtle photographic grain, believable environmental imperfections, and candid visual energy. Keep everything restrained and physically plausible.
+
+Use subtle sunlight, restrained bloom, shallow foreground/background depth blur, directional key light from the upper left, and slightly deeper shadows on the opposite side for dimensional cinematic contrast.
+
+${options.isHuman !== false ? 'Naturally warm skin tones. Enhance eye sharpness, iris detail, catchlights, micro-contrast, pores, beard detail, and skin texture while preserving authentic anatomy.\n' : ''}Preserve every important visual detail exactly. Do not redesign, reposition, simplify, restructure, or add unnecessary elements. EDIT ONLY.
+
+Upscale and refine the final result to true 4K Ultra HD while preserving natural photographic detail.
+
+Final result: emotionally extraordinary, lively, cinematic, candid, physically believable, professionally photographed, and unmistakably real rather than AI-perfect.`;
+
+      case 'cinematic_ui_hardware_enhancer':
+        return `Enhance the provided UI/hardware product frame into a cinematic, ultra-realistic 4K commercial photograph while preserving the exact layout, interface text, buttons, and design hierarchy.
+
+Transform into a tangible physical device in a high-end architectural space: matte titanium chamfered bezels, pristine anti-reflective OLED glass with micro-refractions, directional soft key light from upper-left casting dimensional ambient occlusion shadows to the bottom-right.
+
+Tack-sharp interface clarity with zero blur on typography and icons. Subtle shallow depth-of-field blur on background surroundings. Introduce subtle photographic film grain (35mm aesthetic) to eliminate banding. EDIT ONLY, preserve exact UI structure.`;
+
       default:
         return options.customPrompt || `High-end SaaS motion graphic asset for ${brandName}, clean dark mode aesthetic, modern 3D glassmorphic styling, cinematic lighting.`;
     }
+  }
+
+  /**
+   * Generates production-ready CSS for applying cinematic optical realism
+   * directly to HTML-based motion scenes (subtle film grain, upper-left key light, anti-banding)
+   */
+  static getCinematicOpticsCSS() {
+    return `
+/* --- Cinematic Optics Layer (Anti-AI Plasticity) --- */
+.cinematic-optics-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+.cinematic-key-light {
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+`;
   }
 
   /**
