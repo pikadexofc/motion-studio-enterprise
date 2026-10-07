@@ -7,6 +7,12 @@ ALL_REELS_EXPORT/
 READY_TO_POST/
 .tmp.driveupload/
 render-tests/*.mp4
+render-tests/*.wav
+render-tests/*.png
+render-tests/desktop.ini
+render-tests/snapshots/
+render-tests/brag-preview/
+render-tests/preview/
 *.mp4
 *.zip
 
