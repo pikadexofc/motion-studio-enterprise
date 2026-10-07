@@ -49,6 +49,17 @@ export class BrandIngestionAgent {
 
     // 2. Synthesize Design Tokens
     const designTokens = {
+      colors: {
+        primary: palette.primary,
+        secondary: palette.secondary || '#0A0E17',
+        background: palette.secondary || '#050508',
+        accent: palette.accent || palette.primary,
+        highlight: palette.primary,
+        surface: palette.surface || 'rgba(15, 23, 42, 0.85)',
+        surfaceBorder: palette.surfaceBorder || 'rgba(255, 255, 255, 0.12)',
+        textPrimary: palette.textPrimary || '#FFFFFF',
+        textSecondary: palette.textSecondary || '#94A3B8'
+      },
       palette: {
         primary: palette.primary,
         secondary: palette.secondary || '#0A0E17',
@@ -59,6 +70,9 @@ export class BrandIngestionAgent {
         textSecondary: palette.textSecondary || '#94A3B8'
       },
       typography: {
+        fontDisplay: typography.headlineFont ? `'${typography.headlineFont}', sans-serif` : 'Plus Jakarta Sans',
+        fontBody: typography.bodyFont ? `'${typography.bodyFont}', sans-serif` : 'Inter',
+        fontMono: typography.monoFont ? `'${typography.monoFont}', monospace` : 'JetBrains Mono',
         headline: typography.headlineFont || 'Plus Jakarta Sans',
         body: typography.bodyFont || 'Inter',
         mono: typography.monoFont || 'JetBrains Mono'
@@ -134,7 +148,7 @@ export class BrandIngestionAgent {
                 label: (company.tagline || 'INNOVATION').toUpperCase(),
                 variant: 'pill-laser-glow',
                 iconSvg: VECTOR_GLYPHS.zap,
-                position: { x: '50%', y: '22%' }
+                position: { x: '50%', y: '40%' }
               }
             },
             {
@@ -150,7 +164,7 @@ export class BrandIngestionAgent {
                 tracking: '-0.03em',
                 staggerMs: 40,
                 easing: designTokens.physics.defaultEase,
-                position: { x: '50%', y: '38%' }
+                position: { x: '50%', y: '52%' }
               }
             }
           ]

@@ -1,0 +1,296 @@
+{
+  "$schema": "https://motion-studio.internal/schemas/motion-scene.v1.json",
+  "id": "focusflow-saas-motion",
+  "title": "FocusFlow — High-Tech SaaS Product Launch",
+  "version": "1.0.0",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 60,
+    "duration": 10,
+    "aspectRatio": "9:16",
+    "backgroundColor": "#050508"
+  },
+  "archetype": "Ethereal_Glass",
+  "tokens": {
+    "colors": {
+      "primary": "#FF5A00",
+      "secondary": "#050508",
+      "background": "#050508",
+      "accent": "#8B5CF6",
+      "highlight": "#FF5A00",
+      "surface": "rgba(15, 15, 20, 0.90)",
+      "surfaceBorder": "rgba(255, 90, 0, 0.40)",
+      "textPrimary": "#FFFFFF",
+      "textSecondary": "#94A3B8"
+    },
+    "palette": {
+      "primary": "#FF5A00",
+      "secondary": "#050508",
+      "accent": "#8B5CF6",
+      "surface": "rgba(15, 15, 20, 0.90)",
+      "surfaceBorder": "rgba(255, 90, 0, 0.40)",
+      "textPrimary": "#FFFFFF",
+      "textSecondary": "#94A3B8"
+    },
+    "typography": {
+      "fontDisplay": "'Space Grotesk', sans-serif",
+      "fontBody": "'Poppins', sans-serif",
+      "fontMono": "'JetBrains Mono', monospace",
+      "headline": "Space Grotesk",
+      "body": "Poppins",
+      "mono": "JetBrains Mono"
+    },
+    "physics": {
+      "defaultEase": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "springDamping": 0.75,
+      "springStiffness": 180
+    },
+    "atmosphere": {
+      "backgroundType": "chromatic-mesh",
+      "filmGrain": true,
+      "noiseOpacity": 0.035
+    }
+  },
+  "company": {
+    "name": "FocusFlow",
+    "sector": "Local-First Personal Productivity Engine",
+    "tagline": "Absolute Focus. Zero Cloud Overhead."
+  },
+  "groundTruth": {
+    "website": "focusflow-app-chi.vercel.app",
+    "phone": "github.com/pikadexofc/focusflow-app",
+    "badge": "MIT OPEN SOURCE • LOCAL STORAGE ONLY",
+    "proofMetric": "100% ON-DEVICE PRIVACY"
+  },
+  "narrative": {
+    "hook": "Tired of bloated cloud apps draining your focus?",
+    "problem": "Cloud trackers leak your data and lag your workflow.",
+    "solution": "FocusFlow runs 100% on-device with tactile haptics and instant flow states.",
+    "cta": "Experience pure flow. Open focusflow-app-chi.vercel.app"
+  },
+  "assets": {
+    "logo": null,
+    "uiMockup": null,
+    "glyphs": {
+      "check": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg>",
+      "shield": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/></svg>",
+      "zap": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"/></svg>",
+      "globe": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"/><path d=\"M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\"/></svg>",
+      "phone": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"/></svg>",
+      "activity": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/></svg>",
+      "sparkles": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z\"/></svg>",
+      "cpu": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"2\"/><rect x=\"9\" y=\"9\" width=\"6\" height=\"6\"/><line x1=\"9\" y1=\"1\" x2=\"9\" y2=\"4\"/><line x1=\"15\" y1=\"1\" x2=\"15\" y2=\"4\"/><line x1=\"9\" y1=\"20\" x2=\"9\" y2=\"23\"/><line x1=\"15\" y1=\"20\" x2=\"15\" y2=\"23\"/><line x1=\"20\" y1=\"9\" x2=\"23\" y2=\"9\"/><line x1=\"20\" y1=\"14\" x2=\"23\" y2=\"14\"/><line x1=\"1\" y1=\"9\" x2=\"4\" y2=\"9\"/><line x1=\"1\" y1=\"14\" x2=\"4\" y2=\"14\"/></svg>"
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "name": "The Problem & Hook",
+      "start": 0,
+      "duration": 2.5,
+      "tracks": [
+        {
+          "id": "track-hook-badge",
+          "componentId": "BrandBadge",
+          "layer": {
+            "zIndex": 10
+          },
+          "parameters": {
+            "label": "ABSOLUTE FOCUS. ZERO CLOUD OVERHEAD.",
+            "variant": "pill-laser-glow",
+            "iconSvg": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"/></svg>",
+            "position": {
+              "x": "50%",
+              "y": "40%"
+            }
+          }
+        },
+        {
+          "id": "track-hook-text",
+          "componentId": "TextReveal",
+          "layer": {
+            "zIndex": 12
+          },
+          "parameters": {
+            "headline": "Tired of bloated cloud apps draining your focus?",
+            "font": "Space Grotesk",
+            "size": 64,
+            "weight": 900,
+            "color": "#FFFFFF",
+            "tracking": "-0.03em",
+            "staggerMs": 40,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "position": {
+              "x": "50%",
+              "y": "52%"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-02-solution-demo",
+      "name": "Interactive Solution & 2.5D Product UI",
+      "start": 2.5,
+      "duration": 4,
+      "tracks": [
+        {
+          "id": "track-solution-card",
+          "componentId": "SurfaceCard",
+          "layer": {
+            "zIndex": 15
+          },
+          "parameters": {
+            "architecture": "double-bezel",
+            "title": "FocusFlow AI Core Engine",
+            "statusText": "ACTIVE STREAM",
+            "statusIcon": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/></svg>",
+            "headline": "FocusFlow runs 100% on-device with tactile haptics and instant flow states.",
+            "metricValue": "100% ON-DEVICE PRIVACY",
+            "position": {
+              "x": "50%",
+              "y": "50%"
+            },
+            "isometricTilt": {
+              "rx": 12,
+              "ry": -8,
+              "rz": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-03-conversion-outro",
+      "name": "Arrival & Ground Truth Conversion CTA",
+      "start": 6.5,
+      "duration": 3.5,
+      "tracks": [
+        {
+          "id": "track-conversion-outro",
+          "componentId": "SurfaceCard",
+          "layer": {
+            "zIndex": 20
+          },
+          "parameters": {
+            "architecture": "double-bezel-cta",
+            "companyName": "FocusFlow",
+            "ctaText": "Experience pure flow. Open focusflow-app-chi.vercel.app",
+            "website": "focusflow-app-chi.vercel.app",
+            "phone": "github.com/pikadexofc/focusflow-app",
+            "badge": "MIT OPEN SOURCE • LOCAL STORAGE ONLY",
+            "primaryColor": "#FF5A00",
+            "position": {
+              "x": "50%",
+              "y": "50%"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "track-hook-badge",
+      "type": "BrandBadge",
+      "timing": {
+        "start": 0,
+        "duration": 2.5
+      },
+      "layer": {
+        "zIndex": 10
+      },
+      "parameters": {
+        "label": "ABSOLUTE FOCUS. ZERO CLOUD OVERHEAD.",
+        "variant": "pill-laser-glow",
+        "iconSvg": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"/></svg>",
+        "position": {
+          "x": "50%",
+          "y": "40%"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "id": "track-hook-text",
+      "type": "TextReveal",
+      "timing": {
+        "start": 0,
+        "duration": 2.5
+      },
+      "layer": {
+        "zIndex": 12
+      },
+      "parameters": {
+        "headline": "Tired of bloated cloud apps draining your focus?",
+        "font": "Space Grotesk",
+        "size": 64,
+        "weight": 900,
+        "color": "#FFFFFF",
+        "tracking": "-0.03em",
+        "staggerMs": 40,
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "position": {
+          "x": "50%",
+          "y": "52%"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "id": "track-solution-card",
+      "type": "SurfaceCard",
+      "timing": {
+        "start": 2.5,
+        "duration": 4
+      },
+      "layer": {
+        "zIndex": 15
+      },
+      "parameters": {
+        "architecture": "double-bezel",
+        "title": "FocusFlow AI Core Engine",
+        "statusText": "ACTIVE STREAM",
+        "statusIcon": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/></svg>",
+        "headline": "FocusFlow runs 100% on-device with tactile haptics and instant flow states.",
+        "metricValue": "100% ON-DEVICE PRIVACY",
+        "position": {
+          "x": "50%",
+          "y": "50%"
+        },
+        "isometricTilt": {
+          "rx": 12,
+          "ry": -8,
+          "rz": 2
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "id": "track-conversion-outro",
+      "type": "SurfaceCard",
+      "timing": {
+        "start": 6.5,
+        "duration": 3.5
+      },
+      "layer": {
+        "zIndex": 20
+      },
+      "parameters": {
+        "architecture": "double-bezel-cta",
+        "companyName": "FocusFlow",
+        "ctaText": "Experience pure flow. Open focusflow-app-chi.vercel.app",
+        "website": "focusflow-app-chi.vercel.app",
+        "phone": "github.com/pikadexofc/focusflow-app",
+        "badge": "MIT OPEN SOURCE • LOCAL STORAGE ONLY",
+        "primaryColor": "#FF5A00",
+        "position": {
+          "x": "50%",
+          "y": "50%"
+        }
+      },
+      "tokens": {}
+    }
+  ]
+}

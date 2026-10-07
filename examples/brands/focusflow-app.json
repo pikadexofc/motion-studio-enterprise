@@ -1,0 +1,45 @@
+{
+  "$schema": "https://motion-studio.internal/schemas/brand-intake.v1.json",
+  "company": {
+    "name": "FocusFlow",
+    "sector": "Local-First Personal Productivity Engine",
+    "tagline": "Absolute Focus. Zero Cloud Overhead."
+  },
+  "format": {
+    "aspectRatio": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "fps": 60,
+    "duration": 10.0
+  },
+  "narrative": {
+    "hook": "Tired of bloated cloud apps draining your focus?",
+    "problem": "Cloud trackers leak your data and lag your workflow.",
+    "solution": "FocusFlow runs 100% on-device with tactile haptics and instant flow states.",
+    "cta": "Experience pure flow. Open focusflow-app-chi.vercel.app"
+  },
+  "palette": {
+    "primary": "#FF5A00",
+    "secondary": "#050508",
+    "accent": "#8B5CF6",
+    "surface": "rgba(15, 15, 20, 0.90)",
+    "surfaceBorder": "rgba(255, 90, 0, 0.40)",
+    "textPrimary": "#FFFFFF",
+    "textSecondary": "#94A3B8"
+  },
+  "typography": {
+    "headlineFont": "Space Grotesk",
+    "bodyFont": "Poppins",
+    "monoFont": "JetBrains Mono"
+  },
+  "groundTruth": {
+    "website": "focusflow-app-chi.vercel.app",
+    "phone": "github.com/pikadexofc/focusflow-app",
+    "badge": "MIT OPEN SOURCE • LOCAL STORAGE ONLY",
+    "proofMetric": "100% ON-DEVICE PRIVACY"
+  },
+  "assets": {
+    "logo": null,
+    "uiMockup": null
+  }
+}

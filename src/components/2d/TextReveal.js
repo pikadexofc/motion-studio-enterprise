@@ -38,7 +38,8 @@ export const TextReveal = {
 
   renderDOM(componentId, params, tokens) {
     const p = { ...this.defaults, ...params };
-    const words = p.text.trim().split(/\s+/);
+    const textContent = p.headline || p.text || this.defaults.text;
+    const words = textContent.trim().split(/\s+/);
     
     const wordsHtml = words.map((word, i) => {
       const gradClass = p.gradient && (i >= words.length - 2) ? ' gradient-accent' : '';
@@ -56,27 +57,35 @@ export const TextReveal = {
 
   renderCSS(componentId, params, tokens) {
     const p = { ...this.defaults, ...params };
-    const fontSize = p.variant === 'hero' ? tokens.typography.sizeHero :
-                     p.variant === 'headline' ? tokens.typography.sizeHeadline :
-                     p.variant === 'title' ? tokens.typography.sizeTitle : tokens.typography.sizeBody;
-    const fontWeight = p.variant === 'hero' ? tokens.typography.weightHero :
-                       p.variant === 'headline' ? tokens.typography.weightHeadline : tokens.typography.weightTitle;
+    const fontSize = p.size ? (typeof p.size === 'number' ? `${p.size}px` : p.size) :
+                     p.variant === 'hero' ? (tokens.typography.sizeHero || '72px') :
+                     p.variant === 'headline' ? (tokens.typography.sizeHeadline || '56px') :
+                     p.variant === 'title' ? (tokens.typography.sizeTitle || '36px') : (tokens.typography.sizeBody || '20px');
+    const fontWeight = p.weight || (p.variant === 'hero' ? (tokens.typography.weightHero || '800') :
+                       p.variant === 'headline' ? (tokens.typography.weightHeadline || '700') : (tokens.typography.weightTitle || '600'));
+    const posX = p.position?.x || '50%';
+    const posY = p.position?.y || '50%';
 
     return `
       #${componentId} {
-        position: relative;
+        position: absolute;
+        left: ${posX};
+        top: ${posY};
+        transform: translate(-50%, -50%);
         z-index: 15;
         width: 100%;
         display: flex;
-        justify-content: ${p.align === 'left' ? 'flex-start' : p.align === 'right' ? 'flex-end' : 'center'};
-        font-family: ${tokens.typography.fontDisplay};
+        justify-content: center;
+        align-items: center;
+        font-family: ${tokens.typography.fontDisplay || 'Space Grotesk, sans-serif'};
         color: ${tokens.colors.textPrimary};
       }
       #${componentId} .text-content {
         font-size: ${fontSize};
         font-weight: ${fontWeight};
-        line-height: 1.1;
-        letter-spacing: ${tokens.typography.letterSpacingHero};
+        line-height: 1.15;
+        letter-spacing: ${p.tracking || tokens.typography.letterSpacingHero || '-0.03em'};
+        padding: 0 40px;
       }
       #${componentId} .word-mask {
         display: inline-block;
@@ -110,5 +119,15 @@ export const TextReveal = {
       duration: duration,
       ease: ease
     }, timing.start);
+
+    const trackDur = timing.duration || 2.5;
+    if (timing.start + trackDur < (tokens?.duration || 10)) {
+      tl.to(`#${componentId}`, {
+        opacity: 0,
+        y: -30,
+        duration: 0.4,
+        ease: 'power2.in'
+      }, timing.start + trackDur - 0.4);
+    }
   }
 };
