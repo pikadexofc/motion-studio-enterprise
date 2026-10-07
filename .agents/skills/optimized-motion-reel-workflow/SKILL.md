@@ -17,15 +17,16 @@ This protocol defines the end-to-end production pipeline spanning 5 core discipl
 
 ---
 
-## The 6-Stage Production Pipeline
+## The Optimized 7-Stage Production Pipeline
 
 ```mermaid
 flowchart TD
-    A["Stage 1: Context & Visual Inspiration Research<br>(Pinterest, Dribbble Bento, Linear References)"] --> B["Stage 2: First-Frame Static HTML Mandate<br>(Presentation-Ready Composition at t=0s)"]
-    B --> C["Stage 3: Research & Ideation Refinement<br>(Verify First-Frame Metric Audit)"]
-    C --> D["Stage 4: Restrained & Intentional Motion<br>(Animate the Existing Composition)"]
-    D --> E["Stage 5: ElevenLabs Voiceover & SFX Audio<br>(Frame-Accurate SFX + Music Ducking)"]
-    E --> F["Stage 6: Multi-Axis QA & Delivery<br>(95% Quality Threshold Verification)"]
+    A["Stage 1: Context & Visual Inspiration Research<br>(Pinterest, Dribbble Bento, Linear References)"] --> B["Stage 1.5: Dual-Tier AI Image Generation<br>(Native generate_image OR Browser Gemini/ChatGPT)"]
+    B --> C["Stage 2: First-Frame Static HTML Mandate<br>(Presentation-Ready Composition at t=0s)"]
+    C --> D["Stage 3: Research & Ideation Refinement<br>(Verify First-Frame Metric Audit)"]
+    D --> E["Stage 4: Restrained & Intentional Motion<br>(Animate the Existing Composition)"]
+    E --> F["Stage 5: ElevenLabs Voiceover & SFX Audio<br>(Frame-Accurate SFX + Music Ducking)"]
+    F --> G["Stage 6: Multi-Axis QA & Delivery<br>(95% Quality Threshold Verification)"]
 ```
 
 ---
@@ -46,6 +47,23 @@ Before writing any code or composition:
      - Display: Inter Tight, Space Grotesk, Plus Jakarta Sans (tracking -0.03em, line-height 1.05)
      - Data/Mono: JetBrains Mono, Fira Code (all caps, letter-spacing 0.08em)
      - Hierarchy Contrast: Minimum 5x scale between micro-labels (10px–12px) and hero headlines (64px–80px).
+
+---
+
+## Stage 1.5: Dual-Tier AI Image Asset Generation (Native Tools & Browser AI)
+When a scene requires bespoke visual imagery—such as 3D hardware device mockups, isometric glassmorphic badges, cosmic dark-mode background meshes, or photorealistic product podiums—the system uses a **Dual-Tier Image Generation Protocol**:
+
+### Tier 1: Direct Agent Tool Generation (`generate_image`)
+- If image generation limits and native tools are available, call `generate_image` directly.
+- Specify exact aspect ratios (`9:16`, `16:9`, `1:1`, etc.) and art-directed prompts emphasizing cinematic octane rendering, glass refraction, and dark-mode lighting.
+- Saves the generated asset directly to the workspace or brain artifact directory.
+
+### Tier 2: Autonomous In-Browser AI Generation (Gemini & ChatGPT)
+- If native tool limits are reached, or when complex multi-modal image synthesis (e.g. Imagen 3, DALL-E 3) produces superior art direction:
+  - Autonomously open Chrome DevTools and navigate to **Google Gemini** (`https://gemini.google.com/app`) or **ChatGPT** (`https://chatgpt.com`).
+  - Enter structured, art-directed image prompts using standardized templates from `scripts/image_asset_manager.js`.
+  - Extract the generated high-resolution image asset directly from the browser DOM or download it into `assets/images/` or the scene directory.
+- All generated images undergo preflight validation (`ImageAssetManager.prototype.verifyAsset`) before being bound into the first-frame HTML composition.
 
 ---
 
