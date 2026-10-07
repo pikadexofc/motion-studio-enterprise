@@ -1,0 +1,282 @@
+{
+  "$schema": "https://motion-studio.internal/schemas/motion-scene.v1.json",
+  "id": "apexcloud-ai-saas-motion",
+  "title": "ApexCloud AI — High-Tech SaaS Product Launch",
+  "version": "1.0.0",
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 60,
+    "duration": 20,
+    "aspectRatio": "9:16",
+    "backgroundColor": "#070B14"
+  },
+  "archetype": "Precision_Steel",
+  "tokens": {
+    "palette": {
+      "primary": "#6366F1",
+      "secondary": "#070B14",
+      "accent": "#06B6D4",
+      "surface": "rgba(15, 23, 42, 0.88)",
+      "surfaceBorder": "rgba(99, 102, 241, 0.35)",
+      "textPrimary": "#FFFFFF",
+      "textSecondary": "#94A3B8"
+    },
+    "typography": {
+      "headline": "Plus Jakarta Sans",
+      "body": "Inter",
+      "mono": "JetBrains Mono"
+    },
+    "physics": {
+      "defaultEase": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "springDamping": 0.75,
+      "springStiffness": 180
+    },
+    "atmosphere": {
+      "backgroundType": "chromatic-mesh",
+      "filmGrain": true,
+      "noiseOpacity": 0.035
+    }
+  },
+  "company": {
+    "name": "ApexCloud AI",
+    "sector": "Enterprise Cloud Observability & Autonomous DevTools",
+    "tagline": "Autonomous Infrastructure Intelligence"
+  },
+  "groundTruth": {
+    "website": "www.apexcloud.io",
+    "phone": "1800 273 925",
+    "badge": "SOC2 TYPE II CERTIFIED",
+    "proofMetric": "99.999% SLA UPTIME"
+  },
+  "narrative": {
+    "hook": "Your cloud bill jumped $42,000 overnight. Can your team isolate why in 10 seconds?",
+    "problem": "Legacy dashboards alert 45 minutes after user transactions fail.",
+    "solution": "ApexCloud AI isolates memory leaks and database deadlocks in 12ms flat.",
+    "cta": "Claim your 14-day enterprise trial. Visit apexcloud.io."
+  },
+  "assets": {
+    "logo": null,
+    "uiMockup": null,
+    "glyphs": {
+      "check": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"/></svg>",
+      "shield": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z\"/></svg>",
+      "zap": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"/></svg>",
+      "globe": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"2\" y1=\"12\" x2=\"22\" y2=\"12\"/><path d=\"M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z\"/></svg>",
+      "phone": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"/></svg>",
+      "activity": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/></svg>",
+      "sparkles": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z\"/></svg>",
+      "cpu": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"2\"/><rect x=\"9\" y=\"9\" width=\"6\" height=\"6\"/><line x1=\"9\" y1=\"1\" x2=\"9\" y2=\"4\"/><line x1=\"15\" y1=\"1\" x2=\"15\" y2=\"4\"/><line x1=\"9\" y1=\"20\" x2=\"9\" y2=\"23\"/><line x1=\"15\" y1=\"20\" x2=\"15\" y2=\"23\"/><line x1=\"20\" y1=\"9\" x2=\"23\" y2=\"9\"/><line x1=\"20\" y1=\"14\" x2=\"23\" y2=\"14\"/><line x1=\"1\" y1=\"9\" x2=\"4\" y2=\"9\"/><line x1=\"1\" y1=\"14\" x2=\"4\" y2=\"14\"/></svg>"
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-01-hook",
+      "name": "The Problem & Hook",
+      "start": 0,
+      "duration": 5,
+      "tracks": [
+        {
+          "id": "track-hook-badge",
+          "componentId": "BrandBadge",
+          "layer": {
+            "zIndex": 10
+          },
+          "parameters": {
+            "label": "AUTONOMOUS INFRASTRUCTURE INTELLIGENCE",
+            "variant": "pill-laser-glow",
+            "iconSvg": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"/></svg>",
+            "position": {
+              "x": "50%",
+              "y": "22%"
+            }
+          }
+        },
+        {
+          "id": "track-hook-text",
+          "componentId": "TextReveal",
+          "layer": {
+            "zIndex": 12
+          },
+          "parameters": {
+            "headline": "Your cloud bill jumped $42,000 overnight. Can your team isolate why in 10 seconds?",
+            "font": "Plus Jakarta Sans",
+            "size": 64,
+            "weight": 900,
+            "color": "#FFFFFF",
+            "tracking": "-0.03em",
+            "staggerMs": 40,
+            "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+            "position": {
+              "x": "50%",
+              "y": "38%"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-02-solution-demo",
+      "name": "Interactive Solution & 2.5D Product UI",
+      "start": 5,
+      "duration": 8,
+      "tracks": [
+        {
+          "id": "track-solution-card",
+          "componentId": "SurfaceCard",
+          "layer": {
+            "zIndex": 15
+          },
+          "parameters": {
+            "architecture": "double-bezel",
+            "title": "ApexCloud AI AI Core Engine",
+            "statusText": "ACTIVE STREAM",
+            "statusIcon": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/></svg>",
+            "headline": "ApexCloud AI isolates memory leaks and database deadlocks in 12ms flat.",
+            "metricValue": "99.999% SLA UPTIME",
+            "position": {
+              "x": "50%",
+              "y": "50%"
+            },
+            "isometricTilt": {
+              "rx": 12,
+              "ry": -8,
+              "rz": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "scene-03-conversion-outro",
+      "name": "Arrival & Ground Truth Conversion CTA",
+      "start": 13,
+      "duration": 7,
+      "tracks": [
+        {
+          "id": "track-conversion-outro",
+          "componentId": "SurfaceCard",
+          "layer": {
+            "zIndex": 20
+          },
+          "parameters": {
+            "architecture": "double-bezel-cta",
+            "companyName": "ApexCloud AI",
+            "ctaText": "Claim your 14-day enterprise trial. Visit apexcloud.io.",
+            "website": "www.apexcloud.io",
+            "phone": "1800 273 925",
+            "badge": "SOC2 TYPE II CERTIFIED",
+            "primaryColor": "#6366F1",
+            "position": {
+              "x": "50%",
+              "y": "50%"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "track-hook-badge",
+      "type": "BrandBadge",
+      "timing": {
+        "start": 0,
+        "duration": 5
+      },
+      "layer": {
+        "zIndex": 10
+      },
+      "parameters": {
+        "label": "AUTONOMOUS INFRASTRUCTURE INTELLIGENCE",
+        "variant": "pill-laser-glow",
+        "iconSvg": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polygon points=\"13 2 3 14 12 14 11 22 21 10 12 10 13 2\"/></svg>",
+        "position": {
+          "x": "50%",
+          "y": "22%"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "id": "track-hook-text",
+      "type": "TextReveal",
+      "timing": {
+        "start": 0,
+        "duration": 5
+      },
+      "layer": {
+        "zIndex": 12
+      },
+      "parameters": {
+        "headline": "Your cloud bill jumped $42,000 overnight. Can your team isolate why in 10 seconds?",
+        "font": "Plus Jakarta Sans",
+        "size": 64,
+        "weight": 900,
+        "color": "#FFFFFF",
+        "tracking": "-0.03em",
+        "staggerMs": 40,
+        "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "position": {
+          "x": "50%",
+          "y": "38%"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "id": "track-solution-card",
+      "type": "SurfaceCard",
+      "timing": {
+        "start": 5,
+        "duration": 8
+      },
+      "layer": {
+        "zIndex": 15
+      },
+      "parameters": {
+        "architecture": "double-bezel",
+        "title": "ApexCloud AI AI Core Engine",
+        "statusText": "ACTIVE STREAM",
+        "statusIcon": "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"22 12 18 12 15 21 9 3 6 12 2 12\"/></svg>",
+        "headline": "ApexCloud AI isolates memory leaks and database deadlocks in 12ms flat.",
+        "metricValue": "99.999% SLA UPTIME",
+        "position": {
+          "x": "50%",
+          "y": "50%"
+        },
+        "isometricTilt": {
+          "rx": 12,
+          "ry": -8,
+          "rz": 2
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "id": "track-conversion-outro",
+      "type": "SurfaceCard",
+      "timing": {
+        "start": 13,
+        "duration": 7
+      },
+      "layer": {
+        "zIndex": 20
+      },
+      "parameters": {
+        "architecture": "double-bezel-cta",
+        "companyName": "ApexCloud AI",
+        "ctaText": "Claim your 14-day enterprise trial. Visit apexcloud.io.",
+        "website": "www.apexcloud.io",
+        "phone": "1800 273 925",
+        "badge": "SOC2 TYPE II CERTIFIED",
+        "primaryColor": "#6366F1",
+        "position": {
+          "x": "50%",
+          "y": "50%"
+        }
+      },
+      "tokens": {}
+    }
+  ]
+}

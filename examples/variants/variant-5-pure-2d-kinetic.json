@@ -1,0 +1,38 @@
+{
+  "$schema": "https://motionstudio.ai/schemas/scene-v1.json",
+  "id": "var-05-pure-2d-kinetic",
+  "version": "1.0.0",
+  "meta": { "title": "Variant 5: Pure 2D Kinetic", "seed": 1005 },
+  "canvas": { "width": 1920, "height": 1080, "fps": 60, "duration": 3.0, "aspectRatio": "16:9" },
+  "brand": { "preset": "modern-saas" },
+  "components": [
+    {
+      "type": "BrandBadge",
+      "id": "badge",
+      "layer": "2d-dom",
+      "timing": { "start": 0.1, "duration": 0.8 },
+      "parameters": { "text": "DATA ENGINE", "accentColor": "#38bdf8" }
+    },
+    {
+      "type": "TextReveal",
+      "id": "headline",
+      "layer": "2d-dom",
+      "timing": { "start": 0.3, "duration": 1.2 },
+      "parameters": { "text": "Ultra-Fast Serverless Pipeline", "variant": "headline", "gradient": true }
+    },
+    {
+      "type": "MetricCounter",
+      "id": "counter",
+      "layer": "2d-dom",
+      "timing": { "start": 0.8, "duration": 1.6 },
+      "parameters": { "startValue": 0, "targetValue": 500, "prefix": "+", "suffix": " MB/s", "decimals": 0, "label": "Network Throughput" }
+    },
+    {
+      "type": "SurfaceCard",
+      "id": "card",
+      "layer": "2d-dom",
+      "timing": { "start": 1.1, "duration": 1.0 },
+      "parameters": { "title": "Zero Latency Ingestion", "description": "High-throughput stream processing built with pure CSS and GSAP timelines." }
+    }
+  ]
+}

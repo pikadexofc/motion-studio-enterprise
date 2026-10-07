@@ -1,0 +1,45 @@
+{
+  "$schema": "https://motion-studio.internal/schemas/brand-intake.v1.json",
+  "company": {
+    "name": "ApexCloud AI",
+    "sector": "Enterprise Cloud Observability & Autonomous DevTools",
+    "tagline": "Autonomous Infrastructure Intelligence"
+  },
+  "format": {
+    "aspectRatio": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "fps": 60,
+    "duration": 20.0
+  },
+  "narrative": {
+    "hook": "Your cloud bill jumped $42,000 overnight. Can your team isolate why in 10 seconds?",
+    "problem": "Legacy dashboards alert 45 minutes after user transactions fail.",
+    "solution": "ApexCloud AI isolates memory leaks and database deadlocks in 12ms flat.",
+    "cta": "Claim your 14-day enterprise trial. Visit apexcloud.io."
+  },
+  "palette": {
+    "primary": "#6366F1",
+    "secondary": "#070B14",
+    "accent": "#06B6D4",
+    "surface": "rgba(15, 23, 42, 0.88)",
+    "surfaceBorder": "rgba(99, 102, 241, 0.35)",
+    "textPrimary": "#FFFFFF",
+    "textSecondary": "#94A3B8"
+  },
+  "typography": {
+    "headlineFont": "Plus Jakarta Sans",
+    "bodyFont": "Inter",
+    "monoFont": "JetBrains Mono"
+  },
+  "groundTruth": {
+    "website": "www.apexcloud.io",
+    "phone": "1800 273 925",
+    "badge": "SOC2 TYPE II CERTIFIED",
+    "proofMetric": "99.999% SLA UPTIME"
+  },
+  "assets": {
+    "logo": null,
+    "uiMockup": null
+  }
+}

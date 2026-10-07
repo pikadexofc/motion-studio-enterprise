@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Variant 5: Pure 2D Kinetic</title>
+  <meta name="viewport" content="width=1920, height=1080">
+  <!-- GSAP Core -->
+  <script src="../../../node_modules/gsap/dist/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #07090e;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #f8fafc;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .composition-root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ambient-glow-layer {
+      position: absolute;
+      width: 1344px;
+      height: 1344px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #4f46e544 0%, #06b6d422 45%, transparent 70%);
+      filter: blur(80px);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      z-index: 2;
+    }
+
+    #canvas-3d-container {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .hf-track {
+      position: relative;
+      width: 100%;
+    }
+
+    
+      #badge {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 20;
+      }
+      #badge .badge-inner {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 20px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(16px);
+      }
+      #badge .badge-icon-svg {
+        width: 22px;
+        height: 22px;
+      }
+      #badge .badge-label {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #38bdf8;
+      }
+    
+
+      #headline {
+        position: relative;
+        z-index: 15;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: #f8fafc;
+      }
+      #headline .text-content {
+        font-size: 56px;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+      #headline .word-mask {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+        margin: 0 6px;
+      }
+      #headline .word-el {
+        display: inline-block;
+        transform-origin: bottom left;
+      }
+      #headline .gradient-accent {
+        background: linear-gradient(135deg, #ffffff 30%, #38bdf8 75%, #4f46e5 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    
+
+      #counter {
+        position: relative;
+        z-index: 20;
+      }
+      #counter .metric-card-inner {
+        min-width: 220px;
+        padding: 18px 32px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        backdrop-filter: blur(16px);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #counter .metric-num {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 34px;
+        font-weight: 700;
+        color: #f8fafc;
+        margin-bottom: 4px;
+      }
+      #counter .metric-label {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 14px;
+        color: #64748b;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+    
+
+      #card {
+        position: relative;
+        z-index: 18;
+      }
+      #card .surface-card-body {
+        padding: 28px 32px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 24px;
+        backdrop-filter: blur(16px);
+        box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+      }
+      #card .card-accent-bar {
+        width: 40px;
+        height: 3px;
+        background: #38bdf8;
+        border-radius: 2px;
+        margin-bottom: 16px;
+      }
+      #card .card-title {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 36px;
+        font-weight: 700;
+        color: #f8fafc;
+        margin-bottom: 8px;
+      }
+      #card .card-desc {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 20px;
+        color: #94a3b8;
+        line-height: 1.4;
+      }
+    
+  </style>
+</head>
+<body>
+  <div 
+    id="root" 
+    class="composition-root"
+    data-composition-id="var-05-pure-2d-kinetic"
+    data-start="0"
+    data-duration="3"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div class="ambient-glow-layer" id="ambientGlow"></div>
+    <div class="grid-overlay"></div>
+    
+
+    <div class="content-wrapper" style="position: relative; z-index: 15; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 40px;">
+      
+        <!-- Component Track 1: BrandBadge (badge) -->
+        <div class="hf-track" data-track-index="1" data-start="0.1" data-duration="0.8">
+          
+      <div id="badge" class="comp-brand-badge">
+        <div class="badge-inner">
+          
+      <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5">
+        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+        <polyline points="2 17 12 22 22 17" />
+        <polyline points="2 12 12 17 22 12" />
+      </svg>
+    
+          <span class="badge-label">DATA ENGINE</span>
+        </div>
+      </div>
+    
+        </div>
+      
+
+        <!-- Component Track 2: TextReveal (headline) -->
+        <div class="hf-track" data-track-index="2" data-start="0.3" data-duration="1.2">
+          
+      <div id="headline" class="comp-text-reveal headline">
+        <h1 class="text-content" style="text-align: center; max-width: 1200px;">
+          <span class="word-mask"><span class="word-el">Ultra-Fast</span></span> <span class="word-mask"><span class="word-el gradient-accent">Serverless</span></span> <span class="word-mask"><span class="word-el gradient-accent">Pipeline</span></span>
+        </h1>
+      </div>
+    
+        </div>
+      
+
+        <!-- Component Track 3: MetricCounter (counter) -->
+        <div class="hf-track" data-track-index="3" data-start="0.8" data-duration="1.6">
+          
+      <div id="counter" class="comp-metric-counter">
+        <div class="metric-card-inner">
+          <div class="metric-num" data-target="500">+0 MB/s</div>
+          <div class="metric-label">Network Throughput</div>
+        </div>
+      </div>
+    
+        </div>
+      
+
+        <!-- Component Track 4: SurfaceCard (card) -->
+        <div class="hf-track" data-track-index="4" data-start="1.1" data-duration="1">
+          
+      <div id="card" class="comp-surface-card">
+        <div class="surface-card-body" style="width: 420px; text-align: left;">
+          <div class="card-accent-bar"></div>
+          <h3 class="card-title">Zero Latency Ingestion</h3>
+          <p class="card-desc">High-throughput stream processing built with pure CSS and GSAP timelines.</p>
+        </div>
+      </div>
+    
+        </div>
+      
+    </div>
+  </div>
+
+  
+
+  <script type="module">
+    import { globalComponentRegistry } from '../../../src/components/registry.js';
+
+    const tokens = {"colors":{"background":"#07090e","surface":"rgba(255, 255, 255, 0.04)","surfaceBorder":"rgba(255, 255, 255, 0.1)","textPrimary":"#f8fafc","textSecondary":"#94a3b8","textMuted":"#64748b","primary":"#4f46e5","accent":"#06b6d4","highlight":"#38bdf8","success":"#10b981","warning":"#f59e0b","danger":"#ef4444"},"typography":{"fontDisplay":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif","fontBody":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif","fontMono":"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace","sizeHero":"76px","sizeHeadline":"56px","sizeTitle":"36px","sizeBody":"20px","sizeCaption":"14px","weightHero":"800","weightHeadline":"700","weightTitle":"600","weightBody":"400","weightCaption":"500","letterSpacingHero":"-0.03em","letterSpacingHeadline":"-0.02em","letterSpacingTitle":"-0.01em","letterSpacingCaption":"0.12em"},"surfaces":{"glassBlur":"16px","glassBg":"rgba(255, 255, 255, 0.03)","glassBorder":"1px solid rgba(255, 255, 255, 0.12)","radiusSm":"8px","radiusMd":"16px","radiusLg":"24px","radiusFull":"9999px","shadowElevated":"0 20px 40px -15px rgba(0, 0, 0, 0.5)","glowCyan":"0 0 30px rgba(6, 182, 212, 0.3)","glowIndigo":"0 0 40px rgba(79, 70, 229, 0.35)"},"motion":{"durationMicro":0.25,"durationShort":0.5,"durationMedium":0.8,"durationLong":1.2,"durationCinematic":2,"easeDecel":"power3.out","easeAccel":"power3.in","easeSmooth":"power2.inOut","easeDramatic":"expo.out","easeSnappy":"back.out(1.4)","staggerFast":0.04,"staggerMedium":0.08,"staggerRelaxed":0.12},"lighting":{"ambientColor":"#0a101d","ambientIntensity":2,"keyColor":"#ffffff","keyIntensity":4,"fillColor":"#06b6d4","fillIntensity":5,"rimColor":"#6366f1","rimIntensity":7},"camera":{"fov":45,"near":0.1,"far":100,"defaultStyle":"cinematic-orbit"},"preset":"modern-saas"};
+    const tl = gsap.timeline({ paused: true });
+
+    // Ambient background entrance
+    tl.fromTo('#ambientGlow', 
+      { scale: 0.9, opacity: 0.5 },
+      { scale: 1.25, opacity: 0.85, duration: 2.7, ease: 'sine.out' },
+      0.0
+    );
+
+    // Injected component GSAP builders
+    
+        (function() {
+          const comp = globalComponentRegistry.get('BrandBadge');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'badge', {"start":0.1,"duration":0.8}, {"text":"DATA ENGINE","icon":"diamond","accentColor":"#38bdf8"}, {}, tokens);
+          }
+        })();
+      
+
+        (function() {
+          const comp = globalComponentRegistry.get('TextReveal');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'headline', {"start":0.3,"duration":1.2}, {"text":"Ultra-Fast Serverless Pipeline","variant":"headline","gradient":true,"splitBy":"words","align":"center","maxWidth":"1200px","stagger":0.08,"ease":"power4.out","depthAngle":-35}, {}, tokens);
+          }
+        })();
+      
+
+        (function() {
+          const comp = globalComponentRegistry.get('MetricCounter');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'counter', {"start":0.8,"duration":1.6}, {"startValue":0,"targetValue":500,"prefix":"+","suffix":" MB/s","decimals":0,"label":"Network Throughput","minWidth":"220px"}, {}, tokens);
+          }
+        })();
+      
+
+        (function() {
+          const comp = globalComponentRegistry.get('SurfaceCard');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'card', {"start":1.1,"duration":1}, {"title":"Zero Latency Ingestion","description":"High-throughput stream processing built with pure CSS and GSAP timelines.","width":"420px","height":"auto","align":"left"}, {}, tokens);
+          }
+        })();
+      
+
+    // HyperFrames and Universal Seek Hooks
+    window.__timelines = window.__timelines || {};
+    window.__timelines['main'] = tl;
+    window.__timelines['var-05-pure-2d-kinetic'] = tl;
+
+    window.renderFrame = function(timeInSeconds, frameIndex) {
+      tl.seek(timeInSeconds, false);
+      if (window.__threeRender) {
+        window.__threeRender(timeInSeconds, frameIndex);
+      }
+      return true;
+    };
+
+    // Auto-preview loop in standard browser window
+    if (!window.navigator.userAgent.includes('HeadlessChrome')) {
+      let startTime = null;
+      function previewLoop(now) {
+        if (!startTime) startTime = now;
+        const elapsed = ((now - startTime) / 1000) % 3;
+        window.renderFrame(elapsed, Math.round(elapsed * 60));
+        requestAnimationFrame(previewLoop);
+      }
+      requestAnimationFrame(previewLoop);
+    }
+  </script>
+</body>
+</html>

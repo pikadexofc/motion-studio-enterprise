@@ -1,0 +1,92 @@
+{
+  "$schema": "https://motionstudio.ai/schemas/scene-v1.json",
+  "id": "var-02-minimal-mono",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Variant 2: Minimal Monochrome",
+    "seed": 1002
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "duration": 4,
+    "aspectRatio": "16:9"
+  },
+  "brand": {
+    "preset": "minimal-mono"
+  },
+  "components": [
+    {
+      "type": "LightingRig",
+      "id": "lights",
+      "layer": "3d-webgl",
+      "timing": {
+        "start": 0,
+        "duration": 4
+      },
+      "parameters": {
+        "fillColor": 10658474,
+        "rimColor": 16777215
+      }
+    },
+    {
+      "type": "OrbitalCamera",
+      "id": "cam",
+      "layer": "3d-webgl",
+      "timing": {
+        "start": 0,
+        "duration": 4
+      },
+      "parameters": {
+        "orbitSpeed": 0.15,
+        "initialZ": 5.8
+      }
+    },
+    {
+      "type": "ProceduralArtifact",
+      "id": "artifact",
+      "layer": "3d-webgl",
+      "timing": {
+        "start": 0,
+        "duration": 4
+      },
+      "parameters": {
+        "outerShape": "icosahedron",
+        "floatSpeed": 0.8,
+        "rotationSpeedX": 0.2
+      }
+    },
+    {
+      "type": "BrandBadge",
+      "id": "badge",
+      "layer": "2d-dom",
+      "timing": {
+        "start": 0.2,
+        "duration": 0.9
+      },
+      "parameters": {
+        "text": "EDITORIAL MONO",
+        "accentColor": "#ffffff"
+      }
+    },
+    {
+      "type": "TextReveal",
+      "id": "headline",
+      "layer": "2d-dom",
+      "timing": {
+        "start": 0.5,
+        "duration": 1.5
+      },
+      "parameters": {
+        "text": "Architectural Restraint And Form",
+        "variant": "hero",
+        "gradient": false
+      },
+      "motion": {
+        "intensity": "restrained",
+        "ease": "power2.out"
+      }
+    }
+  ]
+}

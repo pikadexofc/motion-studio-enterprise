@@ -1,0 +1,92 @@
+{
+  "$schema": "https://motionstudio.ai/schemas/scene-v1.json",
+  "id": "bm-07-vertical-social-ad",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Mobile Vertical Launch",
+    "description": "9:16 mobile format social advertisement with floating 3D hero slate.",
+    "seed": 7712
+  },
+  "canvas": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 60,
+    "duration": 3,
+    "aspectRatio": "9:16"
+  },
+  "brand": {
+    "preset": "cyber-neon"
+  },
+  "components": [
+    {
+      "type": "LightingRig",
+      "id": "lights-vertical",
+      "layer": "3d-webgl",
+      "timing": {
+        "start": 0,
+        "duration": 3
+      },
+      "parameters": {
+        "fillColor": 61695,
+        "rimColor": 15485081
+      }
+    },
+    {
+      "type": "OrbitalCamera",
+      "id": "cam-vertical",
+      "layer": "3d-webgl",
+      "timing": {
+        "start": 0,
+        "duration": 3
+      },
+      "parameters": {
+        "orbitSpeed": 0.3,
+        "orbitRadiusX": 2.5,
+        "initialZ": 5.8,
+        "targetY": 0.2,
+        "fov": 55
+      }
+    },
+    {
+      "type": "ProductCard",
+      "id": "mobile-slate",
+      "layer": "3d-webgl",
+      "timing": {
+        "start": 0,
+        "duration": 3
+      },
+      "parameters": {
+        "width": 2.8,
+        "height": 4.2,
+        "borderColor": 61695
+      }
+    },
+    {
+      "type": "BrandBadge",
+      "id": "social-badge",
+      "layer": "2d-dom",
+      "timing": {
+        "start": 0.1,
+        "duration": 0.8
+      },
+      "parameters": {
+        "text": "NOW AVAILABLE",
+        "accentColor": "#00f0ff"
+      }
+    },
+    {
+      "type": "TextReveal",
+      "id": "social-headline",
+      "layer": "2d-dom",
+      "timing": {
+        "start": 0.3,
+        "duration": 1.2
+      },
+      "parameters": {
+        "text": "Produce Video With AI",
+        "variant": "headline",
+        "gradient": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>REEL 01: Sydney ↔ Melbourne Interstate Journey</title>
+  <meta name="viewport" content="width=1080, height=1920">
+  <!-- GSAP Core -->
+  <script src="../../../node_modules/gsap/dist/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html {
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #070f1e;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #FFFFFF;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .composition-root {
+      position: relative;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ambient-glow-layer {
+      position: absolute;
+      width: 756px;
+      height: 756px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #FF720044 0%, #FF8A1E22 45%, transparent 70%);
+      filter: blur(80px);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      z-index: 2;
+    }
+
+    #canvas-3d-container {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .hf-track {
+      position: relative;
+      width: 100%;
+    }
+
+    
+      #hook-strap-scene {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        z-index: 20;
+        pointer-events: none;
+      }
+
+      #hook-strap-scene .hook-camera-container {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform-origin: center center;
+      }
+
+      #hook-strap-scene .hook-shake-container {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #hook-strap-scene .timber-surface {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 55%, #4a2818 0%, #2b1509 60%, #150904 100%);
+        overflow: hidden;
+      }
+
+      #hook-strap-scene .timber-grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.18;
+        background: linear-gradient(90deg, rgba(0,0,0,0.4) 0%, transparent 25%, rgba(255,180,100,0.1) 50%, transparent 75%, rgba(0,0,0,0.4) 100%);
+      }
+
+      #hook-strap-scene .quilted-blanket-fold {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 55%;
+        pointer-events: none;
+      }
+
+      #hook-strap-scene .ratchet-strap-assembly {
+        position: absolute;
+        top: 52%;
+        width: 120%;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(-12deg);
+        z-index: 5;
+      }
+
+      #hook-strap-scene .strap-webbing {
+        flex: 1;
+        height: 72px;
+        background: linear-gradient(180deg, #ff8c2b 0%, #FF7200 40%, #d65500 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        border-top: 2px solid rgba(255,255,255,0.4);
+        border-bottom: 2px solid rgba(0,0,0,0.5);
+      }
+
+      #hook-strap-scene .strap-stitch-pattern {
+        position: absolute;
+        inset: 0;
+        border-top: 2px dashed rgba(0, 0, 0, 0.25);
+        border-bottom: 2px dashed rgba(0, 0, 0, 0.25);
+        margin: 6px 0;
+      }
+
+      #hook-strap-scene .strap-label {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 13px;
+        font-weight: 800;
+        color: rgba(0, 0, 0, 0.65);
+        letter-spacing: 0.25em;
+        white-space: nowrap;
+        padding: 0 40px;
+        text-transform: uppercase;
+      }
+
+      #hook-strap-scene .ratchet-mechanism {
+        width: 190px;
+        height: 130px;
+        background: linear-gradient(135deg, #e2e8f0 0%, #64748b 45%, #334155 100%);
+        border-radius: 12px;
+        position: relative;
+        box-shadow: inset 0 3px 6px rgba(255,255,255,0.6), 0 15px 35px rgba(0,0,0,0.7);
+        border: 2px solid #94a3b8;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+      }
+
+      #hook-strap-scene .ratchet-handle {
+        width: 140px;
+        height: 32px;
+        background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+        border-radius: 8px;
+        border: 2px solid #cbd5e1;
+        position: absolute;
+        top: 20px;
+        transform-origin: 20px center;
+        transform: rotate(35deg);
+      }
+
+      #hook-strap-scene .ratchet-lock-indicator {
+        position: absolute;
+        bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.15em;
+        color: #10b981;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 3px 10px;
+        border-radius: 999px;
+      }
+
+      #hook-strap-scene .lock-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #10b981;
+      }
+
+      #hook-strap-scene .tension-shockwave {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        border: 4px solid #FF7200;
+        opacity: 0;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -200px;
+        pointer-events: none;
+        box-shadow: 0 0 25px rgba(255, 114, 0, 0.8);
+      }
+
+      #hook-strap-scene .hook-overlay-content {
+        position: absolute;
+        top: 14%;
+        width: 100%;
+        padding: 0 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        z-index: 15;
+      }
+
+      #hook-strap-scene .hook-eyebrow-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(14, 42, 71, 0.96);
+        border: 1.5px solid #FF7200;
+        border-radius: 999px;
+        padding: 8px 24px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+      }
+
+      #hook-strap-scene .pulse-dot {
+        width: 10px;
+        height: 10px;
+        background: #FF7200;
+        border-radius: 50%;
+        box-shadow: 0 0 12px #FF7200;
+      }
+
+      #hook-strap-scene .eyebrow-text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        color: #ffffff;
+      }
+
+      #hook-strap-scene .hook-headline {
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 58px;
+        font-weight: 900;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        text-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+        margin-bottom: 30px;
+        max-width: 960px;
+      }
+
+      #hook-strap-scene .hook-word {
+        display: inline-block;
+        margin: 0 6px;
+      }
+
+      #hook-strap-scene .hook-punchline-container {
+        margin-top: 10px;
+      }
+
+      #hook-strap-scene .hook-punchline {
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 78px;
+        font-weight: 950;
+        color: #FF7200;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        background: linear-gradient(180deg, #FFA04D 0%, #FF7200 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0 15px 35px rgba(255, 114, 0, 0.6));
+      }
+
+      #hook-strap-scene .hook-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(0,0,0,0.85) 100%);
+        pointer-events: none;
+      }
+    
+
+      #gps-transit-scene {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        z-index: 20;
+        background: #070f1e;
+        display: flex;
+        flex-direction: column;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* TOP PANEL: GPS MAP (52% Height) */
+      #gps-transit-scene .gps-top-panel {
+        position: relative;
+        width: 100%;
+        height: 52%;
+        background: radial-gradient(circle at 65% 30%, #0d1e38 0%, #060c17 100%);
+        overflow: hidden;
+        border-bottom: 2px solid rgba(255, 114, 0, 0.4);
+      }
+
+      #gps-transit-scene .gps-map-grid {
+        position: absolute;
+        inset: 0;
+        background-size: 60px 60px;
+        background-image: 
+          linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      }
+
+      #gps-transit-scene .gps-hud-bar {
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        right: 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+      }
+
+      #gps-transit-scene .hud-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        backdrop-filter: blur(12px);
+      }
+
+      #gps-transit-scene .live-pill {
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid #10b981;
+        color: #10b981;
+      }
+
+      #gps-transit-scene .live-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #10b981;
+      }
+
+      #gps-transit-scene .route-pill {
+        background: rgba(14, 42, 71, 0.85);
+        border: 1px solid rgba(255, 114, 0, 0.5);
+        color: #ffffff;
+      }
+
+      #gps-transit-scene .gps-route-svg {
+        position: absolute;
+        top: 100px;
+        left: 60px;
+        width: 960px;
+        height: 700px;
+        z-index: 5;
+      }
+
+      #gps-transit-scene .road-backdrop {
+        fill: none;
+        stroke: rgba(255, 255, 255, 0.12);
+        stroke-width: 14;
+        stroke-linecap: round;
+      }
+
+      #gps-transit-scene .road-active-trace {
+        fill: none;
+        stroke: #FF7200;
+        stroke-width: 12;
+        stroke-linecap: round;
+        filter: drop-shadow(0 0 16px rgba(255, 114, 0, 0.8));
+        stroke-dasharray: 1200;
+        stroke-dashoffset: 1200;
+      }
+
+      #gps-transit-scene .map-pin {
+        position: absolute;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      #gps-transit-scene .pin-sydney {
+        top: 155px;
+        right: 170px;
+      }
+
+      #gps-transit-scene .pin-melbourne {
+        bottom: 120px;
+        left: 170px;
+      }
+
+      #gps-transit-scene .pin-ring {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 3px solid #FF7200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 20px rgba(255, 114, 0, 0.6);
+      }
+
+      #gps-transit-scene .pin-ring-dest {
+        border-color: #10b981;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+      }
+
+      #gps-transit-scene .pin-dot {
+        width: 12px;
+        height: 12px;
+        background: #FF7200;
+        border-radius: 50%;
+      }
+
+      #gps-transit-scene .pin-dot-dest {
+        background: #10b981;
+      }
+
+      #gps-transit-scene .pin-card {
+        background: rgba(14, 42, 71, 0.9);
+        border: 1px solid rgba(255, 114, 0, 0.4);
+        padding: 6px 14px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #gps-transit-scene .pin-card-dest {
+        border-color: rgba(16, 185, 129, 0.5);
+      }
+
+      #gps-transit-scene .pin-title {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        color: #94a3b8;
+      }
+
+      #gps-transit-scene .pin-city {
+        font-size: 16px;
+        font-weight: 900;
+        color: #ffffff;
+      }
+
+      #gps-transit-scene .pin-waypoint {
+        top: 48%;
+        left: 48%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(0,0,0,0.6);
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.15);
+      }
+
+      #gps-transit-scene .waypoint-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #fbbf24;
+      }
+
+      #gps-transit-scene .waypoint-label {
+        font-size: 11px;
+        font-weight: 800;
+        color: #e2e8f0;
+        letter-spacing: 0.1em;
+      }
+
+      #gps-transit-scene .distance-metric-badge {
+        position: absolute;
+        bottom: 30px;
+        right: 40px;
+        background: rgba(14, 42, 71, 0.95);
+        border: 2px solid #FF7200;
+        border-radius: 16px;
+        padding: 12px 24px;
+        text-align: right;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        z-index: 10;
+      }
+
+      #gps-transit-scene .metric-number {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 42px;
+        font-weight: 900;
+        color: #ffffff;
+        line-height: 1;
+      }
+
+      #gps-transit-scene .metric-number .unit {
+        font-size: 22px;
+        color: #FF7200;
+      }
+
+      #gps-transit-scene .metric-label {
+        font-size: 11px;
+        font-weight: 800;
+        color: #94a3b8;
+        letter-spacing: 0.15em;
+        margin-top: 4px;
+      }
+
+      /* SPLIT DIVIDER */
+      #gps-transit-scene .split-divider {
+        width: 100%;
+        height: 48px;
+        background: #FF7200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 15;
+        box-shadow: 0 0 30px rgba(255, 114, 0, 0.7);
+      }
+
+      #gps-transit-scene .divider-line {
+        flex: 1;
+        height: 2px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      #gps-transit-scene .divider-badge {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.2em;
+        color: #000000;
+      }
+
+      /* BOTTOM PANEL: TRUCK FOOTAGE (48% Height) */
+      #gps-transit-scene .truck-bottom-panel {
+        position: relative;
+        width: 100%;
+        height: 48%;
+        overflow: hidden;
+      }
+
+      #gps-transit-scene .truck-photo-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+
+      #gps-transit-scene .truck-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.05);
+      }
+
+      #gps-transit-scene .sunrise-flare {
+        position: absolute;
+        top: -100px;
+        right: -100px;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 170, 50, 0.45) 0%, transparent 70%);
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+
+      #gps-transit-scene .photo-overlay-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(0deg, rgba(7, 15, 30, 0.95) 0%, rgba(7, 15, 30, 0.3) 50%, transparent 100%);
+      }
+
+      #gps-transit-scene .transit-caption-card {
+        position: absolute;
+        bottom: 50px;
+        left: 40px;
+        right: 40px;
+        background: rgba(14, 42, 71, 0.92);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 18px;
+        padding: 24px 28px;
+        backdrop-filter: blur(16px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+      }
+
+      #gps-transit-scene .warning-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 800;
+        color: #ef4444;
+        background: rgba(239, 68, 68, 0.15);
+        padding: 4px 10px;
+        border-radius: 999px;
+        margin-bottom: 12px;
+        letter-spacing: 0.1em;
+      }
+
+      #gps-transit-scene .caption-quote {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: #e2e8f0;
+        line-height: 1.3;
+        margin-bottom: 14px;
+      }
+
+      #gps-transit-scene .unn-solution-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 800;
+        color: #FF7200;
+        letter-spacing: 0.1em;
+      }
+    
+
+      #cargo-protection-scene {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        z-index: 20;
+        background: #070f1e;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 80px 50px 70px 50px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #cargo-protection-scene .cargo-bg-wrapper {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      #cargo-protection-scene .cargo-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.04);
+        filter: brightness(0.7) contrast(1.15);
+      }
+
+      #cargo-protection-scene .cargo-overlay-vignette {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 50%, rgba(7, 15, 30, 0.4) 0%, rgba(7, 15, 30, 0.95) 100%);
+      }
+
+      #cargo-protection-scene .etrack-rail-left {
+        position: absolute;
+        left: 30px;
+        top: 0;
+        bottom: 0;
+        width: 24px;
+        background-image: repeating-linear-gradient(180deg, #64748b 0px, #64748b 20px, #0f172a 20px, #0f172a 40px);
+        box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        opacity: 0.7;
+      }
+
+      #cargo-protection-scene .etrack-rail-right {
+        position: absolute;
+        right: 30px;
+        top: 0;
+        bottom: 0;
+        width: 24px;
+        background-image: repeating-linear-gradient(180deg, #64748b 0px, #64748b 20px, #0f172a 20px, #0f172a 40px);
+        box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        opacity: 0.7;
+      }
+
+      /* HEADER HUD */
+      #cargo-protection-scene .cargo-header-hud {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #cargo-protection-scene .hud-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(14, 42, 71, 0.9);
+        border: 1px solid #FF7200;
+        padding: 6px 18px;
+        border-radius: 999px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        color: #ffffff;
+        margin-bottom: 14px;
+      }
+
+      #cargo-protection-scene .hud-blink-dot {
+        width: 8px;
+        height: 8px;
+        background: #FF7200;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #FF7200;
+      }
+
+      #cargo-protection-scene .cargo-title {
+        font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 44px;
+        font-weight: 900;
+        color: #ffffff;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
+        text-shadow: 0 10px 25px rgba(0,0,0,0.9);
+        max-width: 900px;
+      }
+
+      /* PROTECTION CARDS */
+      #cargo-protection-scene .protection-cards-container {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        gap: 22px;
+        width: 100%;
+        margin: 20px 0;
+      }
+
+      #cargo-protection-scene .protection-card {
+        display: flex;
+        align-items: center;
+        background: rgba(14, 42, 71, 0.92);
+        border: 1.5px solid rgba(255, 114, 0, 0.35);
+        border-radius: 20px;
+        padding: 24px 28px;
+        gap: 20px;
+        backdrop-filter: blur(18px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        transition: border-color 0.3s ease;
+      }
+
+      #cargo-protection-scene .card-icon-wrap {
+        width: 64px;
+        height: 64px;
+        border-radius: 14px;
+        background: rgba(255, 114, 0, 0.15);
+        border: 1px solid rgba(255, 114, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        flex-shrink: 0;
+      }
+
+      #cargo-protection-scene .card-text-wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      #cargo-protection-scene .card-headline {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 22px;
+        font-weight: 800;
+        color: #ffffff;
+        letter-spacing: 0.02em;
+      }
+
+      #cargo-protection-scene .card-sub {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 15px;
+        font-weight: 500;
+        color: #cbd5e1;
+        line-height: 1.35;
+      }
+
+      #cargo-protection-scene .card-status-badge {
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        background: rgba(16, 185, 129, 0.15);
+        border: 1px solid #10b981;
+        color: #10b981;
+      }
+
+      /* TELEMETRY READOUT STRIP */
+      #cargo-protection-scene .telemetry-readout-strip {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background: rgba(7, 15, 30, 0.95);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 16px;
+        padding: 18px 24px;
+        backdrop-filter: blur(14px);
+      }
+
+      #cargo-protection-scene .telemetry-item {
+        text-align: center;
+      }
+
+      #cargo-protection-scene .telemetry-val {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 32px;
+        font-weight: 900;
+        color: #ffffff;
+      }
+
+      #cargo-protection-scene .sub-unit {
+        font-size: 16px;
+        color: #FF7200;
+      }
+
+      #cargo-protection-scene .green-val {
+        color: #10b981;
+      }
+
+      #cargo-protection-scene .telemetry-lbl {
+        font-size: 11px;
+        font-weight: 800;
+        color: #94a3b8;
+        letter-spacing: 0.14em;
+        margin-top: 4px;
+      }
+
+      #cargo-protection-scene .telemetry-divider {
+        width: 1px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      /* ZERO DAMAGE SEAL */
+      #cargo-protection-scene .zero-damage-seal {
+        position: relative;
+        z-index: 10;
+        background: linear-gradient(135deg, #FF7200 0%, #b84a00 100%);
+        border-radius: 20px;
+        padding: 20px 28px;
+        box-shadow: 0 15px 40px rgba(255, 114, 0, 0.5);
+        border: 2px solid #FFA04D;
+      }
+
+      #cargo-protection-scene .seal-inner {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      #cargo-protection-scene .seal-icon {
+        font-size: 40px;
+      }
+
+      #cargo-protection-scene .seal-text-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      #cargo-protection-scene .seal-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24px;
+        font-weight: 950;
+        color: #ffffff;
+        letter-spacing: 0.04em;
+      }
+
+      #cargo-protection-scene .seal-sub {
+        font-size: 13px;
+        font-weight: 800;
+        color: #070f1e;
+        letter-spacing: 0.14em;
+      }
+    
+
+      #conversion-ending-scene {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        z-index: 20;
+        background: #070f1e;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 60px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      #conversion-ending-scene .arrival-bg-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      #conversion-ending-scene .arrival-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.05);
+      }
+
+      #conversion-ending-scene .arrival-gradient-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(0deg, rgba(7, 15, 30, 0.98) 0%, rgba(7, 15, 30, 0.6) 45%, rgba(7, 15, 30, 0.2) 100%);
+      }
+
+      #conversion-ending-scene .arrival-status-flag {
+        position: absolute;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(14, 42, 71, 0.9);
+        border: 1px solid #10b981;
+        padding: 8px 24px;
+        border-radius: 999px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 13px;
+        font-weight: 800;
+        color: #10b981;
+        letter-spacing: 0.16em;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      }
+
+      #conversion-ending-scene .flag-dot {
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #10b981;
+      }
+
+      /* CAMPAIGN BANNER PILL */
+      #conversion-ending-scene .campaign-banner-pill {
+        position: relative;
+        z-index: 10;
+        margin-top: 150px;
+        background: linear-gradient(90deg, #FF7200 0%, #FF8A1E 100%);
+        padding: 14px 36px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 10px 30px rgba(255, 114, 0, 0.6);
+        border: 2px solid #ffffff;
+      }
+
+      #conversion-ending-scene .banner-icon {
+        font-size: 20px;
+      }
+
+      #conversion-ending-scene .banner-text {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 18px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        color: #ffffff;
+        text-transform: uppercase;
+      }
+
+      /* MASTER LOWER THIRD CARD */
+      #conversion-ending-scene .master-lower-third-card {
+        position: relative;
+        z-index: 15;
+        width: 960px;
+        background: rgba(14, 42, 71, 0.95);
+        border: 2px solid rgba(255, 114, 0, 0.5);
+        border-radius: 28px;
+        padding: 36px 40px;
+        backdrop-filter: blur(24px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      #conversion-ending-scene .brand-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        padding-bottom: 16px;
+      }
+
+      #conversion-ending-scene .unn-official-logo {
+        height: 62px;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+      }
+
+      #conversion-ending-scene .brand-descriptor-pill {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 0.18em;
+        color: #FF7200;
+        background: rgba(255, 114, 0, 0.12);
+        padding: 6px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 114, 0, 0.4);
+      }
+
+      #conversion-ending-scene .pill-dot {
+        width: 6px;
+        height: 6px;
+        background: #FF7200;
+        border-radius: 50%;
+      }
+
+      /* PHONE CTA */
+      #conversion-ending-scene .phone-cta-container {
+        background: #FF7200;
+        border: 2px solid #FFA04D;
+        border-radius: 20px;
+        padding: 20px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        box-shadow: 0 12px 35px rgba(255, 114, 0, 0.45);
+      }
+
+      #conversion-ending-scene .phone-label-strip {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        font-weight: 900;
+        color: #0E2A47;
+        letter-spacing: 0.15em;
+      }
+
+      #conversion-ending-scene .label-badge {
+        background: #0E2A47;
+        color: #ffffff;
+        padding: 3px 10px;
+        border-radius: 6px;
+        font-weight: 900;
+      }
+
+      #conversion-ending-scene .phone-number-display {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      #conversion-ending-scene .phone-icon-box {
+        width: 54px;
+        height: 54px;
+        background: #0E2A47;
+        color: #ffffff;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      #conversion-ending-scene .phone-digits {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 54px;
+        font-weight: 950;
+        color: #0E2A47;
+        letter-spacing: 0.04em;
+        line-height: 1;
+      }
+
+      /* DIGITAL CONTACT ROW */
+      #conversion-ending-scene .digital-contact-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      #conversion-ending-scene .website-pill {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 10px 20px;
+        border-radius: 12px;
+      }
+
+      #conversion-ending-scene .globe-icon {
+        font-size: 18px;
+      }
+
+      #conversion-ending-scene .website-url {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 19px;
+        font-weight: 800;
+        color: #e2e8f0;
+        letter-spacing: 0.05em;
+      }
+
+      #conversion-ending-scene .license-badge {
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        color: #94a3b8;
+      }
+
+      /* PROOF POINTS STRIP */
+      #conversion-ending-scene .proof-points-strip {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 14px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #cbd5e1;
+      }
+
+      #conversion-ending-scene .proof-item .check {
+        color: #10b981;
+        font-weight: 900;
+        margin-right: 4px;
+      }
+
+      /* HASHTAGS TICKER */
+      #conversion-ending-scene .hashtags-ticker-bar {
+        background: rgba(7, 15, 30, 0.9);
+        border-radius: 10px;
+        padding: 10px 16px;
+        font-size: 12px;
+        font-weight: 800;
+        color: #94a3b8;
+        letter-spacing: 0.06em;
+        text-align: center;
+      }
+
+      #conversion-ending-scene .hashtag-item {
+        color: #FFA04D;
+      }
+    
+  </style>
+</head>
+<body>
+  <div 
+    id="root" 
+    class="composition-root"
+    data-composition-id="reel-01-sydney-melbourne"
+    data-start="0"
+    data-duration="25"
+    data-width="1080"
+    data-height="1920"
+  >
+    <div class="ambient-glow-layer" id="ambientGlow"></div>
+    <div class="grid-overlay"></div>
+    
+
+    <div class="content-wrapper" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none;">
+      
+        <!-- Component Track 10: ReelHookStrap (hook-strap-scene) -->
+        <div class="hf-track" data-track-index="10" data-start="0" data-duration="2.8" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none;">
+          
+      <div id="hook-strap-scene" class="reel-hook-strap">
+        <div class="hook-camera-container">
+          <div class="hook-shake-container">
+            <!-- Timber Table Surface & Cargo Blanket Background -->
+            <div class="timber-surface">
+              <svg class="quilted-blanket-fold" viewBox="0 0 1080 1056" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="hook-strap-scene-blanketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1c2638" />
+                    <stop offset="100%" stop-color="#0d1522" />
+                  </linearGradient>
+                </defs>
+                <polygon points="0,84 1080,0 1080,1056 0,1056" fill="url(#hook-strap-scene-blanketGrad)" />
+                <line x1="0" y1="84" x2="1080" y2="0" stroke="#FF7200" stroke-width="6" />
+              </svg>
+              <div class="timber-grain"></div>
+              <div class="strap-shadow"></div>
+            </div>
+
+            <!-- Industrial Tension Ratchet Strap (UNN High-Vis Orange) -->
+            <div class="ratchet-strap-assembly">
+              <div class="strap-webbing strap-webbing-left">
+                <div class="strap-stitch-pattern"></div>
+                <div class="strap-label">UNN CARGO SECURE • 5,000 KG RATED</div>
+              </div>
+              
+              <div class="ratchet-mechanism">
+                <div class="ratchet-frame">
+                  <div class="ratchet-gear"></div>
+                  <div class="ratchet-handle">
+                    <div class="ratchet-grip"></div>
+                  </div>
+                  <div class="ratchet-lock-indicator">
+                    <div class="lock-dot"></div>
+                    <span>LOCKED</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="strap-webbing strap-webbing-right">
+                <div class="strap-stitch-pattern"></div>
+                <div class="strap-label">HEAVY INDUSTRIAL TENSIONER</div>
+              </div>
+            </div>
+
+            <!-- Tension shockwave line -->
+            <div class="tension-shockwave"></div>
+
+            <!-- Foreground Kinetic Typography Overlay -->
+            <div class="hook-overlay-content">
+              <div class="hook-eyebrow-pill">
+                <span class="pulse-dot"></span>
+                <span class="eyebrow-text">INTERSTATE RELOCATION STANDARDS</span>
+              </div>
+
+              <h1 class="hook-headline">
+                <span class="hook-word">THINK</span> <span class="hook-word">INTERSTATE</span> <span class="hook-word">MOVES</span> <span class="hook-word">MEAN</span> <span class="hook-word">BROKEN</span> <span class="hook-word">FURNITURE?</span>
+              </h1>
+
+              <div class="hook-punchline-container">
+                <span class="hook-punchline">WATCH THIS.</span>
+              </div>
+            </div>
+
+            <!-- Cinematic vignette & speed streaks -->
+            <div class="hook-vignette"></div>
+            <div class="speed-streaks"></div>
+          </div>
+        </div>
+      </div>
+    
+        </div>
+      
+
+        <!-- Component Track 11: ReelGpsTransit (gps-transit-scene) -->
+        <div class="hf-track" data-track-index="11" data-start="2.5" data-duration="6.2" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 11; pointer-events: none;">
+          
+      <div id="gps-transit-scene" class="reel-gps-transit">
+        <!-- TOP HALF: GPS Telematics Navigation Map -->
+        <div class="gps-top-panel">
+          <div class="gps-map-grid"></div>
+          
+          <!-- Header Telematics HUD -->
+          <div class="gps-hud-bar">
+            <div class="hud-pill live-pill">
+              <span class="live-dot"></span>
+              <span>LIVE GPS TELEMATICS</span>
+            </div>
+            <div class="hud-pill route-pill">
+              <span>HUME HIGHWAY • M31</span>
+            </div>
+          </div>
+
+          <!-- SVG Route Vector -->
+          <svg class="gps-route-svg" viewBox="0 0 960 700" preserveAspectRatio="none">
+            <!-- Background Road Matrix -->
+            <path class="road-backdrop" d="M 720 80 Q 560 220 500 360 T 260 620" />
+            <!-- Animated Electric Orange Route Trace -->
+            <path class="road-active-trace" id="gps-transit-scene-route" d="M 720 80 Q 560 220 500 360 T 260 620" />
+          </svg>
+
+          <!-- Origin Pin: Sydney -->
+          <div class="map-pin pin-sydney">
+            <div class="pin-ring"></div>
+            <div class="pin-dot"></div>
+            <div class="pin-card">
+              <span class="pin-title">ORIGIN</span>
+              <span class="pin-city">SYDNEY NSW</span>
+            </div>
+          </div>
+
+          <!-- Midpoint: Albury Hume Corridor -->
+          <div class="map-pin pin-waypoint">
+            <div class="waypoint-dot"></div>
+            <span class="waypoint-label">ALBURY CORRIDOR</span>
+          </div>
+
+          <!-- Destination Pin: Melbourne -->
+          <div class="map-pin pin-melbourne">
+            <div class="pin-ring pin-ring-dest"></div>
+            <div class="pin-dot pin-dot-dest"></div>
+            <div class="pin-card pin-card-dest">
+              <span class="pin-title">DESTINATION</span>
+              <span class="pin-city">MELBOURNE VIC</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Distance Display -->
+          <div class="distance-metric-badge">
+            <div class="metric-number"><span id="gps-transit-scene-counter">878</span> <span class="unit">KM</span></div>
+            <div class="metric-label">INTERSTATE HIGHWAY CORRIDOR</div>
+          </div>
+        </div>
+
+        <!-- SPLIT DIVIDER BAR -->
+        <div class="split-divider">
+          <div class="divider-line"></div>
+          <div class="divider-badge">
+            <span class="badge-icon">🚚</span>
+            <span>UNN EXPRESS INTERSTATE FLEET</span>
+          </div>
+          <div class="divider-line"></div>
+        </div>
+
+        <!-- BOTTOM HALF: Sunrise Highway Truck Footage -->
+        <div class="truck-bottom-panel">
+          <div class="truck-photo-container">
+            <img class="truck-photo" src="./assets/unn/truck_highway.jpg" alt="UNN Truck Highway Sunrise" />
+            <div class="sunrise-flare"></div>
+            <div class="photo-overlay-gradient"></div>
+          </div>
+
+          <!-- Voiceover Context Callout Card -->
+          <div class="transit-caption-card">
+            <div class="warning-tag">
+              <span class="warning-icon">⚠️</span>
+              <span>INDUSTRY PROBLEM</span>
+            </div>
+            <div class="caption-quote">
+              "Most movers toss boxes in & hope for the best."
+            </div>
+            <div class="unn-solution-pill">
+              <span class="check-icon">✓</span>
+              <span>UNN STANDARD: ZERO-DAMAGE ENGINEERED TRANSIT</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+        </div>
+      
+
+        <!-- Component Track 12: ReelCargoProtection (cargo-protection-scene) -->
+        <div class="hf-track" data-track-index="12" data-start="8.3" data-duration="9.3" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 12; pointer-events: none;">
+          
+      <div id="cargo-protection-scene" class="reel-cargo-protection">
+        <!-- Background Interior Truck Photographic View -->
+        <div class="cargo-bg-wrapper">
+          <img class="cargo-photo" src="./assets/unn/loading_furniture.png" alt="UNN Interior Cargo Protection" />
+          <div class="cargo-overlay-vignette"></div>
+          
+          <!-- Industrial E-Track Wall Rails (SVG overlay) -->
+          <div class="etrack-rail-left"></div>
+          <div class="etrack-rail-right"></div>
+        </div>
+
+        <!-- Upper Header HUD -->
+        <div class="cargo-header-hud">
+          <div class="hud-tag">
+            <span class="hud-blink-dot"></span>
+            <span>TRANSIT RIGOR & CARGO TELEMETRICS</span>
+          </div>
+          <h2 class="cargo-title">ENGINEERED ZERO-DAMAGE PROTECTION</h2>
+        </div>
+
+        <!-- Interactive Protection Feature Cards -->
+        <div class="protection-cards-container">
+          <!-- Card 1: Blanket Wraps -->
+          <div class="protection-card card-blanket" id="cargo-protection-scene-card1">
+            <div class="card-icon-wrap">
+              <span class="card-icon">🛡️</span>
+            </div>
+            <div class="card-text-wrap">
+              <div class="card-headline">100% BLANKET-WRAPPED</div>
+              <div class="card-sub">Double-stitched commercial moving quilts protect all furniture surfaces.</div>
+            </div>
+            <div class="card-status-badge status-active">VERIFIED</div>
+          </div>
+
+          <!-- Card 2: Wall-Locked E-Track -->
+          <div class="protection-card card-locked" id="cargo-protection-scene-card2">
+            <div class="card-icon-wrap">
+              <span class="card-icon">⚓</span>
+            </div>
+            <div class="card-text-wrap">
+              <div class="card-headline">WALL-LOCKED E-TRACK RAILS</div>
+              <div class="card-sub">Heavy-gauge chassis mounting locks cargo directly to truck frame.</div>
+            </div>
+            <div class="card-status-badge status-active">SECURED</div>
+          </div>
+
+          <!-- Card 3: Industrial Tensioners -->
+          <div class="protection-card card-tensioners" id="cargo-protection-scene-card3">
+            <div class="card-icon-wrap">
+              <span class="card-icon">⚡</span>
+            </div>
+            <div class="card-text-wrap">
+              <div class="card-headline">5,000 KG RATCHET TENSIONERS</div>
+              <div class="card-sub">Commercial polyester webbing eliminates cargo shift on Hume Hwy.</div>
+            </div>
+            <div class="card-status-badge status-active">TIGHTENED</div>
+          </div>
+        </div>
+
+        <!-- Telemetry Data Sensors HUD -->
+        <div class="telemetry-readout-strip">
+          <div class="telemetry-item">
+            <div class="telemetry-val" id="cargo-protection-scene-vib">0.02 <span class="sub-unit">G</span></div>
+            <div class="telemetry-lbl">VIBRATION INDEX</div>
+          </div>
+          <div class="telemetry-divider"></div>
+          <div class="telemetry-item">
+            <div class="telemetry-val" id="cargo-protection-scene-shift">0.00 <span class="sub-unit">MM</span></div>
+            <div class="telemetry-lbl">CARGO SHIFT</div>
+          </div>
+          <div class="telemetry-divider"></div>
+          <div class="telemetry-item">
+            <div class="telemetry-val green-val">100%</div>
+            <div class="telemetry-lbl">STABILITY STATUS</div>
+          </div>
+        </div>
+
+        <!-- Zero Damage Guaranteed Seal -->
+        <div class="zero-damage-seal" id="cargo-protection-scene-seal">
+          <div class="seal-inner">
+            <div class="seal-icon">🏆</div>
+            <div class="seal-text-group">
+              <span class="seal-title">ZERO DAMAGE GUARANTEED</span>
+              <span class="seal-sub">FULL COMPREHENSIVE TRANSIT COVERAGE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+        </div>
+      
+
+        <!-- Component Track 13: ReelConversionLowerThird (conversion-ending-scene) -->
+        <div class="hf-track" data-track-index="13" data-start="17.2" data-duration="7.8" style="position: absolute; inset: 0; width: 100%; height: 100%; z-index: 13; pointer-events: none;">
+          
+      <div id="conversion-ending-scene" class="reel-conversion-ending">
+        <!-- Background: Melbourne Arrival Scene -->
+        <div class="arrival-bg-container">
+          <img class="arrival-photo" src="./assets/unn/canonical_truck.jpg" alt="UNN Truck Melbourne Arrival" />
+          <div class="arrival-gradient-overlay"></div>
+          
+          <!-- Top Arrival Telemetry Flag -->
+          <div class="arrival-status-flag">
+            <span class="flag-dot"></span>
+            <span>MELBOURNE VIC • DELIVERED ON SCHEDULE</span>
+          </div>
+        </div>
+
+        <!-- Upper Callout: Spring Campaign -->
+        <div class="campaign-banner-pill">
+          <span class="banner-icon">🌸</span>
+          <span class="banner-text">BOOK YOUR SPRING INTERSTATE MOVE TODAY</span>
+        </div>
+
+        <!-- Master Lower-Third Pop Card -->
+        <div class="master-lower-third-card" id="conversion-ending-scene-card">
+          <!-- Logo & Brand Row -->
+          <div class="brand-header-row">
+            <img class="unn-official-logo" src="./assets/unn/logo.png" alt="UNN Movers & Logistics Official Logo" />
+            <div class="brand-descriptor-pill">
+              <span class="pill-dot"></span>
+              <span>INTERSTATE LOGISTICS</span>
+            </div>
+          </div>
+
+          <!-- Main Phone CTA (Ground Truth Verified) -->
+          <div class="phone-cta-container">
+            <div class="phone-label-strip">
+              <span>SYDNEY MAIN BOOKINGS</span>
+              <span class="label-badge">FREE FIXED QUOTE</span>
+            </div>
+            <div class="phone-number-display">
+              <span class="phone-icon-box">📞</span>
+              <span class="phone-digits">1300 556 778</span>
+            </div>
+          </div>
+
+          <!-- Website & Assurance Row -->
+          <div class="digital-contact-row">
+            <div class="website-pill">
+              <span class="globe-icon">🌐</span>
+              <span class="website-url">www.unnmovers.com.au</span>
+            </div>
+            <div class="license-badge">
+              <span>AUSTRALIA WIDE</span>
+            </div>
+          </div>
+
+          <!-- Reassurance Proof Points -->
+          <div class="proof-points-strip">
+            <div class="proof-item">
+              <span class="check">✓</span> Zero Damage Guarantee
+            </div>
+            <div class="proof-item">
+              <span class="check">✓</span> Wall-Locked Cargo
+            </div>
+            <div class="proof-item">
+              <span class="check">✓</span> Live GPS Telematics
+            </div>
+          </div>
+
+          <!-- Official Social Hashtags Ticker Bar -->
+          <div class="hashtags-ticker-bar">
+            <div class="hashtags-content">
+              <span class="hashtag-item">#SydneyRemovalists</span> • <span class="hashtag-item">#MelbourneMovers</span> • <span class="hashtag-item">#InterstateMovingAustralia</span> • <span class="hashtag-item">#UNNMovers</span> • <span class="hashtag-item">#MovingHacks</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+        </div>
+      
+    </div>
+  </div>
+
+  
+
+  <script type="module">
+    import { globalComponentRegistry } from '../../../src/components/registry.js';
+
+    const tokens = {"colors":{"background":"#070f1e","surface":"rgba(14, 42, 71, 0.88)","surfaceBorder":"rgba(255, 114, 0, 0.35)","textPrimary":"#FFFFFF","textSecondary":"#E2E8F0","textMuted":"#94A3B8","primary":"#FF7200","accent":"#FF8A1E","highlight":"#FFFFFF","success":"#10b981","warning":"#f59e0b","danger":"#ef4444","secondary":"#0E2A47"},"typography":{"fontDisplay":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif","fontBody":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif","fontMono":"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace","sizeHero":"76px","sizeHeadline":"56px","sizeTitle":"36px","sizeBody":"20px","sizeCaption":"14px","weightHero":"800","weightHeadline":"700","weightTitle":"600","weightBody":"400","weightCaption":"500","letterSpacingHero":"-0.03em","letterSpacingHeadline":"-0.02em","letterSpacingTitle":"-0.01em","letterSpacingCaption":"0.12em"},"surfaces":{"glassBlur":"16px","glassBg":"rgba(255, 255, 255, 0.03)","glassBorder":"1px solid rgba(255, 255, 255, 0.12)","radiusSm":"8px","radiusMd":"16px","radiusLg":"24px","radiusFull":"9999px","shadowElevated":"0 20px 40px -15px rgba(0, 0, 0, 0.5)","glowCyan":"0 0 30px rgba(6, 182, 212, 0.3)","glowIndigo":"0 0 40px rgba(79, 70, 229, 0.35)"},"motion":{"durationMicro":0.25,"durationShort":0.5,"durationMedium":0.8,"durationLong":1.2,"durationCinematic":2,"easeDecel":"power3.out","easeAccel":"power3.in","easeSmooth":"power2.inOut","easeDramatic":"expo.out","easeSnappy":"back.out(1.4)","staggerFast":0.04,"staggerMedium":0.08,"staggerRelaxed":0.12},"lighting":{"ambientColor":"#070f1e","ambientIntensity":2,"keyColor":"#ffffff","keyIntensity":4,"fillColor":"#FF7200","fillIntensity":5,"rimColor":"#1E3A8A","rimIntensity":7},"camera":{"fov":45,"near":0.1,"far":100,"defaultStyle":"cinematic-orbit"},"preset":"unn-movers"};
+    const tl = gsap.timeline({ paused: true });
+
+    // Ambient background entrance
+    tl.fromTo('#ambientGlow', 
+      { scale: 0.9, opacity: 0.5 },
+      { scale: 1.25, opacity: 0.85, duration: 22.5, ease: 'sine.out' },
+      0.0
+    );
+
+    // Injected component GSAP builders
+    
+        (function() {
+          const comp = globalComponentRegistry.get('ReelHookStrap');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'hook-strap-scene', {"start":0,"duration":2.8}, {"strapColor":"#FF7200","timberWoodColor":"#3d2314","headline":"THINK INTERSTATE MOVES MEAN BROKEN FURNITURE?","hookPunch":"WATCH THIS.","eyebrow":"INTERSTATE RELOCATION STANDARDS"}, {}, tokens);
+          }
+        })();
+      
+
+        (function() {
+          const comp = globalComponentRegistry.get('ReelGpsTransit');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'gps-transit-scene', {"start":2.5,"duration":6.2}, {"origin":"SYDNEY NSW","destination":"MELBOURNE VIC","distanceKm":878,"highwayName":"HUME HIGHWAY • M31","truckImage":"./assets/unn/truck_highway.jpg","contrastText":"Most movers toss boxes in & hope for the best."}, {}, tokens);
+          }
+        })();
+      
+
+        (function() {
+          const comp = globalComponentRegistry.get('ReelCargoProtection');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'cargo-protection-scene', {"start":8.3,"duration":9.3}, {"interiorImage":"./assets/unn/loading_furniture.png","eyebrow":"TRANSIT RIGOR & CARGO TELEMETRICS","headline":"ENGINEERED ZERO-DAMAGE PROTECTION"}, {}, tokens);
+          }
+        })();
+      
+
+        (function() {
+          const comp = globalComponentRegistry.get('ReelConversionLowerThird');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'conversion-ending-scene', {"start":17.2,"duration":7.8}, {"arrivalImage":"./assets/unn/canonical_truck.jpg","logoImage":"./assets/unn/logo.png","phone":"1300 556 778","website":"www.unnmovers.com.au","campaign":"BOOK YOUR SPRING INTERSTATE MOVE TODAY","tagline":"SYDNEY ↔ MELBOURNE ZERO DAMAGE SPECIALISTS","hashtags":["#SydneyRemovalists","#MelbourneMovers","#InterstateMovingAustralia","#UNNMovers","#MovingHacks"]}, {}, tokens);
+          }
+        })();
+      
+
+    // HyperFrames and Universal Seek Hooks
+    window.__timelines = window.__timelines || {};
+    window.__timelines['main'] = tl;
+    window.__timelines['reel-01-sydney-melbourne'] = tl;
+
+    window.renderFrame = function(timeInSeconds, frameIndex) {
+      tl.seek(timeInSeconds, false);
+      if (window.__threeRender) {
+        window.__threeRender(timeInSeconds, frameIndex);
+      }
+      return true;
+    };
+
+    // Auto-preview loop in standard browser window
+    if (!window.navigator.userAgent.includes('HeadlessChrome') && !window.navigator.webdriver) {
+      let startTime = null;
+      function previewLoop(now) {
+        if (!startTime) startTime = now;
+        const elapsed = ((now - startTime) / 1000) % 25;
+        window.renderFrame(elapsed, Math.round(elapsed * 60));
+        requestAnimationFrame(previewLoop);
+      }
+      requestAnimationFrame(previewLoop);
+    }
+  </script>
+</body>
+</html>

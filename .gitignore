@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Large binary video exports & temp uploads
+ALL_REELS_EXPORT/
+READY_TO_POST/
+.tmp.driveupload/
+render-tests/*.mp4
+*.mp4
+*.zip
+
+# Local Client Records & Legacy Folders
+06_client_documents/
+Shining Technologies/
+darwin_tree_removal_assets/
+shining/
+unn web clone/
+_trackers_and_notes/
+generated_logos/
+task ultra.gsheet
+visual_analysis_report.md
+
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

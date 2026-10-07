@@ -1,0 +1,78 @@
+{
+  "$schema": "https://motionstudio.ai/schemas/scene-v1.json",
+  "id": "bm-02-kinetic-typography",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Kinetic Typography Showcase",
+    "description": "Staggered typographic hierarchy with high-contrast framing accents.",
+    "seed": 1024
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "duration": 3,
+    "aspectRatio": "16:9"
+  },
+  "brand": {
+    "preset": "minimal-mono"
+  },
+  "components": [
+    {
+      "type": "ShapeReveal",
+      "id": "framing-brackets",
+      "layer": "2d-dom",
+      "timing": {
+        "start": 0,
+        "duration": 0.8
+      },
+      "parameters": {
+        "pattern": "corner-brackets",
+        "color": "#ffffff"
+      }
+    },
+    {
+      "type": "BrandBadge",
+      "id": "category-tag",
+      "layer": "2d-dom",
+      "timing": {
+        "start": 0.2,
+        "duration": 0.8
+      },
+      "parameters": {
+        "text": "Motion Intelligence",
+        "accentColor": "#ffffff"
+      }
+    },
+    {
+      "type": "TextReveal",
+      "id": "main-title",
+      "layer": "2d-dom",
+      "timing": {
+        "start": 0.4,
+        "duration": 1.4
+      },
+      "parameters": {
+        "text": "Precision Engineering For Digital Designers",
+        "variant": "hero",
+        "gradient": false,
+        "stagger": 0.06
+      }
+    },
+    {
+      "type": "TextReveal",
+      "id": "sub-copy",
+      "layer": "2d-dom",
+      "timing": {
+        "start": 1.2,
+        "duration": 1
+      },
+      "parameters": {
+        "text": "Frame-accurate seekable timelines compiled directly from declarative manifests.",
+        "variant": "body",
+        "gradient": false,
+        "maxWidth": "850px"
+      }
+    }
+  ]
+}

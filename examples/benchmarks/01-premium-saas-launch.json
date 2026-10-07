@@ -1,0 +1,84 @@
+{
+  "$schema": "https://motionstudio.ai/schemas/scene-v1.json",
+  "id": "bm-01-premium-saas-launch",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Premium SaaS Launch",
+    "description": "High-impact enterprise product reveal with 2D kinetic copy and 3D spatial artifact.",
+    "seed": 4289
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "duration": 3.0,
+    "aspectRatio": "16:9"
+  },
+  "brand": {
+    "preset": "modern-saas"
+  },
+  "components": [
+    {
+      "type": "LightingRig",
+      "id": "studio-lights",
+      "layer": "3d-webgl",
+      "timing": { "start": 0.0, "duration": 3.0 },
+      "parameters": {
+        "orbitLights": true
+      }
+    },
+    {
+      "type": "OrbitalCamera",
+      "id": "cam-orbit",
+      "layer": "3d-webgl",
+      "timing": { "start": 0.0, "duration": 3.0 },
+      "parameters": {
+        "orbitSpeed": 0.35,
+        "initialZ": 5.2,
+        "targetY": 0.2
+      }
+    },
+    {
+      "type": "PodiumStage",
+      "id": "glass-stage",
+      "layer": "3d-webgl",
+      "timing": { "start": 0.0, "duration": 3.0 },
+      "parameters": {
+        "yPosition": -1.2,
+        "stageColor": 804631,
+        "ringColor": 3718648
+      }
+    },
+    {
+      "type": "ProceduralArtifact",
+      "id": "hero-prism",
+      "layer": "3d-webgl",
+      "timing": { "start": 0.0, "duration": 3.0 },
+      "parameters": {
+        "outerShape": "icosahedron",
+        "transmission": 0.9,
+        "floatSpeed": 1.4
+      }
+    },
+    {
+      "type": "BrandBadge",
+      "id": "hero-badge",
+      "layer": "2d-dom",
+      "timing": { "start": 0.1, "duration": 0.8 },
+      "parameters": {
+        "text": "Enterprise Cloud 2.0"
+      }
+    },
+    {
+      "type": "TextReveal",
+      "id": "hero-headline",
+      "layer": "2d-dom",
+      "timing": { "start": 0.3, "duration": 1.2 },
+      "parameters": {
+        "text": "Next-Gen Autonomous Infrastructure",
+        "variant": "hero",
+        "gradient": true
+      }
+    }
+  ]
+}

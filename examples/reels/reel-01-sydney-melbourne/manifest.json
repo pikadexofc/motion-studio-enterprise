@@ -1,0 +1,116 @@
+{
+  "$schema": "https://motionstudio.ai/schemas/scene-v1.json",
+  "id": "reel-01-sydney-melbourne",
+  "version": "1.0.0",
+  "meta": {
+    "title": "REEL 01: Sydney ↔ Melbourne Interstate Journey",
+    "brand": "unn-movers",
+    "seed": 2026,
+    "tags": [
+      "reel",
+      "vertical",
+      "9:16",
+      "interstate",
+      "unn-movers",
+      "sydney",
+      "melbourne"
+    ]
+  },
+  "canvas": {
+    "aspectRatio": "9:16",
+    "width": 1080,
+    "height": 1920,
+    "fps": 60,
+    "duration": 25.0
+  },
+  "brand": {
+    "preset": "unn-movers",
+    "colors": {
+      "primary": "#FF7200",
+      "secondary": "#0E2A47",
+      "accent": "#FF8A1E",
+      "textPrimary": "#FFFFFF"
+    }
+  },
+  "components": [
+    {
+      "id": "hook-strap-scene",
+      "type": "ReelHookStrap",
+      "timing": {
+        "start": 0.0,
+        "duration": 2.8
+      },
+      "layer": {
+        "zIndex": 10
+      },
+      "parameters": {
+        "strapColor": "#FF7200",
+        "timberWoodColor": "#3d2314",
+        "headline": "THINK INTERSTATE MOVES MEAN BROKEN FURNITURE?",
+        "hookPunch": "WATCH THIS.",
+        "eyebrow": "INTERSTATE RELOCATION STANDARDS"
+      }
+    },
+    {
+      "id": "gps-transit-scene",
+      "type": "ReelGpsTransit",
+      "timing": {
+        "start": 2.5,
+        "duration": 6.2
+      },
+      "layer": {
+        "zIndex": 11
+      },
+      "parameters": {
+        "origin": "SYDNEY NSW",
+        "destination": "MELBOURNE VIC",
+        "distanceKm": 878,
+        "highwayName": "HUME HIGHWAY • M31",
+        "truckImage": "./assets/unn/truck_highway.jpg",
+        "contrastText": "Most movers toss boxes in & hope for the best."
+      }
+    },
+    {
+      "id": "cargo-protection-scene",
+      "type": "ReelCargoProtection",
+      "timing": {
+        "start": 8.3,
+        "duration": 9.3
+      },
+      "layer": {
+        "zIndex": 12
+      },
+      "parameters": {
+        "interiorImage": "./assets/unn/loading_furniture.png",
+        "eyebrow": "TRANSIT RIGOR & CARGO TELEMETRICS",
+        "headline": "ENGINEERED ZERO-DAMAGE PROTECTION"
+      }
+    },
+    {
+      "id": "conversion-ending-scene",
+      "type": "ReelConversionLowerThird",
+      "timing": {
+        "start": 17.2,
+        "duration": 7.8
+      },
+      "layer": {
+        "zIndex": 13
+      },
+      "parameters": {
+        "arrivalImage": "./assets/unn/canonical_truck.jpg",
+        "logoImage": "./assets/unn/logo.png",
+        "phone": "1300 556 778",
+        "website": "www.unnmovers.com.au",
+        "campaign": "BOOK YOUR SPRING INTERSTATE MOVE TODAY",
+        "tagline": "SYDNEY ↔ MELBOURNE ZERO DAMAGE SPECIALISTS",
+        "hashtags": [
+          "#SydneyRemovalists",
+          "#MelbourneMovers",
+          "#InterstateMovingAustralia",
+          "#UNNMovers",
+          "#MovingHacks"
+        ]
+      }
+    }
+  ]
+}

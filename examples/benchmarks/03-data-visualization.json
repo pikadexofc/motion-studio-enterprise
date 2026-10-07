@@ -1,0 +1,68 @@
+{
+  "$schema": "https://motionstudio.ai/schemas/scene-v1.json",
+  "id": "bm-03-data-visualization",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Kinetic Data Dashboard",
+    "description": "Real-time metrics with interpolating counters and glassmorphic cards.",
+    "seed": 992
+  },
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 60,
+    "duration": 3.0,
+    "aspectRatio": "16:9"
+  },
+  "brand": {
+    "preset": "cyber-neon"
+  },
+  "components": [
+    {
+      "type": "BrandBadge",
+      "id": "kpi-badge",
+      "layer": "2d-dom",
+      "timing": { "start": 0.1, "duration": 0.8 },
+      "parameters": {
+        "text": "Live Telemetry",
+        "accentColor": "#00f0ff"
+      }
+    },
+    {
+      "type": "TextReveal",
+      "id": "kpi-headline",
+      "layer": "2d-dom",
+      "timing": { "start": 0.3, "duration": 1.0 },
+      "parameters": {
+        "text": "Global Real-Time Performance",
+        "variant": "headline",
+        "gradient": true
+      }
+    },
+    {
+      "type": "MetricCounter",
+      "id": "metric-throughput",
+      "layer": "2d-dom",
+      "timing": { "start": 0.8, "duration": 1.8 },
+      "parameters": {
+        "startValue": 0,
+        "targetValue": 99.98,
+        "suffix": "%",
+        "decimals": 2,
+        "label": "Render Accuracy",
+        "minWidth": "260px"
+      }
+    },
+    {
+      "type": "SurfaceCard",
+      "id": "card-summary",
+      "layer": "2d-dom",
+      "timing": { "start": 1.2, "duration": 1.0 },
+      "parameters": {
+        "title": "Sub-Millisecond Synchronization",
+        "description": "Virtual clock stepping guarantees zero frame drops and deterministic rendering across distributed workers.",
+        "width": "640px"
+      }
+    }
+  ]
+}

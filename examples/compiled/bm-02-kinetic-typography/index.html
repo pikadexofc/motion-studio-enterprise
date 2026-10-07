@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kinetic Typography Showcase</title>
+  <meta name="viewport" content="width=1920, height=1080">
+  <!-- GSAP Core -->
+  <script src="../../../node_modules/gsap/dist/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #09090b;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #f4f4f5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .composition-root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ambient-glow-layer {
+      position: absolute;
+      width: 1344px;
+      height: 1344px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff44 0%, #a1a1aa22 45%, transparent 70%);
+      filter: blur(80px);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      z-index: 2;
+    }
+
+    #canvas-3d-container {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .hf-track {
+      position: relative;
+      width: 100%;
+    }
+
+    
+      #framing-brackets {
+        position: absolute;
+        inset: 40px;
+        pointer-events: none;
+        z-index: 10;
+      }
+      #framing-brackets .bracket {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        border-color: #ffffff;
+        border-style: solid;
+        border-width: 0;
+        opacity: 0.6;
+      }
+      #framing-brackets .top-left { top: 0; left: 0; border-top-width: 2px; border-left-width: 2px; }
+      #framing-brackets .top-right { top: 0; right: 0; border-top-width: 2px; border-right-width: 2px; }
+      #framing-brackets .bottom-left { bottom: 0; left: 0; border-bottom-width: 2px; border-left-width: 2px; }
+      #framing-brackets .bottom-right { bottom: 0; right: 0; border-bottom-width: 2px; border-right-width: 2px; }
+    
+
+      #category-tag {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 20;
+      }
+      #category-tag .badge-inner {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 20px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(16px);
+      }
+      #category-tag .badge-icon-svg {
+        width: 22px;
+        height: 22px;
+      }
+      #category-tag .badge-label {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #e4e4e7;
+      }
+    
+
+      #main-title {
+        position: relative;
+        z-index: 15;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: #f4f4f5;
+      }
+      #main-title .text-content {
+        font-size: 76px;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+      #main-title .word-mask {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+        margin: 0 6px;
+      }
+      #main-title .word-el {
+        display: inline-block;
+        transform-origin: bottom left;
+      }
+      #main-title .gradient-accent {
+        background: linear-gradient(135deg, #ffffff 30%, #e4e4e7 75%, #ffffff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    
+
+      #sub-copy {
+        position: relative;
+        z-index: 15;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: #f4f4f5;
+      }
+      #sub-copy .text-content {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+      #sub-copy .word-mask {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+        margin: 0 6px;
+      }
+      #sub-copy .word-el {
+        display: inline-block;
+        transform-origin: bottom left;
+      }
+      #sub-copy .gradient-accent {
+        background: linear-gradient(135deg, #ffffff 30%, #e4e4e7 75%, #ffffff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    
+  </style>
+</head>
+<body>
+  <div 
+    id="root" 
+    class="composition-root"
+    data-composition-id="bm-02-kinetic-typography"
+    data-start="0"
+    data-duration="3"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div class="ambient-glow-layer" id="ambientGlow"></div>
+    <div class="grid-overlay"></div>
+    
+
+    <div class="content-wrapper" style="position: relative; z-index: 15; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 40px;">
+      
+        <!-- Component Track 1: ShapeReveal (framing-brackets) -->
+        <div class="hf-track" data-track-index="1" data-start="0" data-duration="0.8">
+          
+      <div id="framing-brackets" class="comp-shape-reveal">
+        <div class="bracket top-left"></div>
+        <div class="bracket top-right"></div>
+        <div class="bracket bottom-left"></div>
+        <div class="bracket bottom-right"></div>
+      </div>
+    
+        </div>
+      
+
+        <!-- Component Track 2: BrandBadge (category-tag) -->
+        <div class="hf-track" data-track-index="2" data-start="0.2" data-duration="0.8">
+          
+      <div id="category-tag" class="comp-brand-badge">
+        <div class="badge-inner">
+          
+      <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
+        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+        <polyline points="2 17 12 22 22 17" />
+        <polyline points="2 12 12 17 22 12" />
+      </svg>
+    
+          <span class="badge-label">Motion Intelligence</span>
+        </div>
+      </div>
+    
+        </div>
+      
+
+        <!-- Component Track 3: TextReveal (main-title) -->
+        <div class="hf-track" data-track-index="3" data-start="0.4" data-duration="1.4">
+          
+      <div id="main-title" class="comp-text-reveal hero">
+        <h1 class="text-content" style="text-align: center; max-width: 1200px;">
+          <span class="word-mask"><span class="word-el">Precision</span></span> <span class="word-mask"><span class="word-el">Engineering</span></span> <span class="word-mask"><span class="word-el">For</span></span> <span class="word-mask"><span class="word-el">Digital</span></span> <span class="word-mask"><span class="word-el">Designers</span></span>
+        </h1>
+      </div>
+    
+        </div>
+      
+
+        <!-- Component Track 4: TextReveal (sub-copy) -->
+        <div class="hf-track" data-track-index="4" data-start="1.2" data-duration="1">
+          
+      <div id="sub-copy" class="comp-text-reveal body">
+        <h1 class="text-content" style="text-align: center; max-width: 850px;">
+          <span class="word-mask"><span class="word-el">Frame-accurate</span></span> <span class="word-mask"><span class="word-el">seekable</span></span> <span class="word-mask"><span class="word-el">timelines</span></span> <span class="word-mask"><span class="word-el">compiled</span></span> <span class="word-mask"><span class="word-el">directly</span></span> <span class="word-mask"><span class="word-el">from</span></span> <span class="word-mask"><span class="word-el">declarative</span></span> <span class="word-mask"><span class="word-el">manifests.</span></span>
+        </h1>
+      </div>
+    
+        </div>
+      
+    </div>
+  </div>
+
+  
+
+  <script type="module">
+    import { globalComponentRegistry } from '../../../src/components/registry.js';
+
+    const tokens = {"colors":{"background":"#09090b","surface":"rgba(255, 255, 255, 0.04)","surfaceBorder":"rgba(255, 255, 255, 0.1)","textPrimary":"#f4f4f5","textSecondary":"#94a3b8","textMuted":"#64748b","primary":"#ffffff","accent":"#a1a1aa","highlight":"#e4e4e7","success":"#10b981","warning":"#f59e0b","danger":"#ef4444"},"typography":{"fontDisplay":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif","fontBody":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif","fontMono":"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace","sizeHero":"76px","sizeHeadline":"56px","sizeTitle":"36px","sizeBody":"20px","sizeCaption":"14px","weightHero":"800","weightHeadline":"700","weightTitle":"600","weightBody":"400","weightCaption":"500","letterSpacingHero":"-0.03em","letterSpacingHeadline":"-0.02em","letterSpacingTitle":"-0.01em","letterSpacingCaption":"0.12em"},"surfaces":{"glassBlur":"16px","glassBg":"rgba(255, 255, 255, 0.03)","glassBorder":"1px solid rgba(255, 255, 255, 0.12)","radiusSm":"8px","radiusMd":"16px","radiusLg":"24px","radiusFull":"9999px","shadowElevated":"0 20px 40px -15px rgba(0, 0, 0, 0.5)","glowCyan":"0 0 30px rgba(6, 182, 212, 0.3)","glowIndigo":"0 0 40px rgba(79, 70, 229, 0.35)"},"motion":{"durationMicro":0.25,"durationShort":0.5,"durationMedium":0.8,"durationLong":1.2,"durationCinematic":2,"easeDecel":"power3.out","easeAccel":"power3.in","easeSmooth":"power2.inOut","easeDramatic":"expo.out","easeSnappy":"back.out(1.4)","staggerFast":0.04,"staggerMedium":0.08,"staggerRelaxed":0.12},"lighting":{"ambientColor":"#0a101d","ambientIntensity":2.5,"keyColor":"#ffffff","keyIntensity":5,"fillColor":"#a1a1aa","fillIntensity":5,"rimColor":"#ffffff","rimIntensity":7},"camera":{"fov":45,"near":0.1,"far":100,"defaultStyle":"cinematic-orbit"},"preset":"minimal-mono"};
+    const tl = gsap.timeline({ paused: true });
+
+    // Ambient background entrance
+    tl.fromTo('#ambientGlow', 
+      { scale: 0.9, opacity: 0.5 },
+      { scale: 1.25, opacity: 0.85, duration: 2.7, ease: 'sine.out' },
+      0.0
+    );
+
+    // Injected component GSAP builders
+    
+        (function() {
+          const comp = globalComponentRegistry.get('ShapeReveal');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'framing-brackets', {"start":0,"duration":0.8}, {"pattern":"corner-brackets","color":"#ffffff"}, {}, tokens);
+          }
+        })();
+      
+
+        (function() {
+          const comp = globalComponentRegistry.get('BrandBadge');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'category-tag', {"start":0.2,"duration":0.8}, {"text":"Motion Intelligence","icon":"diamond","accentColor":"#ffffff"}, {}, tokens);
+          }
+        })();
+      
+
+        (function() {
+          const comp = globalComponentRegistry.get('TextReveal');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'main-title', {"start":0.4,"duration":1.4}, {"text":"Precision Engineering For Digital Designers","variant":"hero","gradient":false,"splitBy":"words","align":"center","maxWidth":"1200px","stagger":0.06,"ease":"power4.out","depthAngle":-35}, {}, tokens);
+          }
+        })();
+      
+
+        (function() {
+          const comp = globalComponentRegistry.get('TextReveal');
+          if (comp && comp.buildGSAP) {
+            comp.buildGSAP(tl, 'sub-copy', {"start":1.2,"duration":1}, {"text":"Frame-accurate seekable timelines compiled directly from declarative manifests.","variant":"body","gradient":false,"splitBy":"words","align":"center","maxWidth":"850px","stagger":0.08,"ease":"power4.out","depthAngle":-35}, {}, tokens);
+          }
+        })();
+      
+
+    // HyperFrames and Universal Seek Hooks
+    window.__timelines = window.__timelines || {};
+    window.__timelines['main'] = tl;
+    window.__timelines['bm-02-kinetic-typography'] = tl;
+
+    window.renderFrame = function(timeInSeconds, frameIndex) {
+      tl.seek(timeInSeconds, false);
+      if (window.__threeRender) {
+        window.__threeRender(timeInSeconds, frameIndex);
+      }
+      return true;
+    };
+
+    // Auto-preview loop in standard browser window
+    if (!window.navigator.userAgent.includes('HeadlessChrome')) {
+      let startTime = null;
+      function previewLoop(now) {
+        if (!startTime) startTime = now;
+        const elapsed = ((now - startTime) / 1000) % 3;
+        window.renderFrame(elapsed, Math.round(elapsed * 60));
+        requestAnimationFrame(previewLoop);
+      }
+      requestAnimationFrame(previewLoop);
+    }
+  </script>
+</body>
+</html>

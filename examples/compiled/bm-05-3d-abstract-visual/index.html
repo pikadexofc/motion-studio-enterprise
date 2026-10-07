@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Abstract Particle Cloud</title>
+  <meta name="viewport" content="width=1920, height=1080">
+  <!-- GSAP Core -->
+  <script src="../../../node_modules/gsap/dist/gsap.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body, html {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #07090e;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #f8fafc;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .composition-root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .ambient-glow-layer {
+      position: absolute;
+      width: 1344px;
+      height: 1344px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #4f46e544 0%, #06b6d422 45%, transparent 70%);
+      filter: blur(80px);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      z-index: 2;
+    }
+
+    #canvas-3d-container {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .hf-track {
+      position: relative;
+      width: 100%;
+    }
+
+    
+  </style>
+</head>
+<body>
+  <div 
+    id="root" 
+    class="composition-root"
+    data-composition-id="bm-05-3d-abstract-visual"
+    data-start="0"
+    data-duration="3"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div class="ambient-glow-layer" id="ambientGlow"></div>
+    <div class="grid-overlay"></div>
+    <div id="canvas-3d-container"></div>
+
+    <div class="content-wrapper" style="position: relative; z-index: 15; width: 100%; display: flex; flex-direction: column; align-items: center; padding: 40px;">
+      
+    </div>
+  </div>
+
+  <script type="module">
+        import * as THREE from '../../../node_modules/three/build/three.module.js';
+        import { globalComponentRegistry } from '../../../src/components/registry.js';
+        import { createPRNG } from '../../../src/engine/prng.js';
+
+        const canvasContainer = document.getElementById('canvas-3d-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x07090e, 0.08);
+
+        const camera = new THREE.PerspectiveCamera(45, 1920 / 1080, 0.1, 100);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(1920, 1080);
+        renderer.setPixelRatio(1);
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1.1;
+        canvasContainer.appendChild(renderer.domElement);
+
+        const prng = createPRNG(8812);
+        const updateHooks = [];
+        const tokens = {"colors":{"background":"#07090e","surface":"rgba(255, 255, 255, 0.04)","surfaceBorder":"rgba(255, 255, 255, 0.1)","textPrimary":"#f8fafc","textSecondary":"#94a3b8","textMuted":"#64748b","primary":"#4f46e5","accent":"#06b6d4","highlight":"#38bdf8","success":"#10b981","warning":"#f59e0b","danger":"#ef4444"},"typography":{"fontDisplay":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif","fontBody":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif","fontMono":"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace","sizeHero":"76px","sizeHeadline":"56px","sizeTitle":"36px","sizeBody":"20px","sizeCaption":"14px","weightHero":"800","weightHeadline":"700","weightTitle":"600","weightBody":"400","weightCaption":"500","letterSpacingHero":"-0.03em","letterSpacingHeadline":"-0.02em","letterSpacingTitle":"-0.01em","letterSpacingCaption":"0.12em"},"surfaces":{"glassBlur":"16px","glassBg":"rgba(255, 255, 255, 0.03)","glassBorder":"1px solid rgba(255, 255, 255, 0.12)","radiusSm":"8px","radiusMd":"16px","radiusLg":"24px","radiusFull":"9999px","shadowElevated":"0 20px 40px -15px rgba(0, 0, 0, 0.5)","glowCyan":"0 0 30px rgba(6, 182, 212, 0.3)","glowIndigo":"0 0 40px rgba(79, 70, 229, 0.35)"},"motion":{"durationMicro":0.25,"durationShort":0.5,"durationMedium":0.8,"durationLong":1.2,"durationCinematic":2,"easeDecel":"power3.out","easeAccel":"power3.in","easeSmooth":"power2.inOut","easeDramatic":"expo.out","easeSnappy":"back.out(1.4)","staggerFast":0.04,"staggerMedium":0.08,"staggerRelaxed":0.12},"lighting":{"ambientColor":"#0a101d","ambientIntensity":2,"keyColor":"#ffffff","keyIntensity":4,"fillColor":"#06b6d4","fillIntensity":5,"rimColor":"#6366f1","rimIntensity":7},"camera":{"fov":45,"near":0.1,"far":100,"defaultStyle":"cinematic-orbit"},"preset":"modern-saas"};
+
+        
+          // 3D Component: LightingRig (lights-abstract)
+          (function() {
+            const comp = globalComponentRegistry.get('LightingRig');
+            if (comp && comp.buildThree) {
+              const hook = comp.buildThree(THREE, scene, camera, renderer, 'lights-abstract', {"start":0,"duration":3}, {"ambientColor":659485,"ambientIntensity":2,"keyColor":16777215,"keyIntensity":4,"fillColor":439999,"fillIntensity":5,"rimColor":6514417,"rimIntensity":7,"orbitLights":true}, {}, tokens, prng);
+              if (hook && hook.update) updateHooks.push(hook.update);
+            }
+          })();
+        
+
+          // 3D Component: OrbitalCamera (cam-abstract)
+          (function() {
+            const comp = globalComponentRegistry.get('OrbitalCamera');
+            if (comp && comp.buildThree) {
+              const hook = comp.buildThree(THREE, scene, camera, renderer, 'cam-abstract', {"start":0,"duration":3}, {"orbitSpeed":0.4,"orbitRadiusX":4.5,"orbitRadiusY":0.6,"initialZ":5.5,"zAdvanceSpeed":0.25,"targetY":0.3,"fov":45}, {}, tokens, prng);
+              if (hook && hook.update) updateHooks.push(hook.update);
+            }
+          })();
+        
+
+          // 3D Component: ParticleField (hero-particles)
+          (function() {
+            const comp = globalComponentRegistry.get('ParticleField');
+            if (comp && comp.buildThree) {
+              const hook = comp.buildThree(THREE, scene, camera, renderer, 'hero-particles', {"start":0,"duration":3}, {"count":220,"size":0.06,"color":8246268,"radiusMin":1.8,"radiusMax":5.5,"heightSpread":3.5,"driftSpeed":0.2,"seed":8812}, {}, tokens, prng);
+              if (hook && hook.update) updateHooks.push(hook.update);
+            }
+          })();
+        
+
+          // 3D Component: ProceduralArtifact (abstract-core)
+          (function() {
+            const comp = globalComponentRegistry.get('ProceduralArtifact');
+            if (comp && comp.buildThree) {
+              const hook = comp.buildThree(THREE, scene, camera, renderer, 'abstract-core', {"start":0,"duration":3}, {"outerShape":"octahedron","outerRadius":1.4,"innerRadius":0.7,"roughness":0.1,"transmission":0.85,"ior":1.45,"glassColor":6333946,"coreColor":3718648,"ring1Color":8490232,"ring2Color":2282478,"floatSpeed":1.5,"floatAmp":0.15,"rotationSpeedX":0.45,"rotationSpeedY":0.6}, {}, tokens, prng);
+              if (hook && hook.update) updateHooks.push(hook.update);
+            }
+          })();
+        
+
+          // 3D Component: GlassSurface (backdrop-plane)
+          (function() {
+            const comp = globalComponentRegistry.get('GlassSurface');
+            if (comp && comp.buildThree) {
+              const hook = comp.buildThree(THREE, scene, camera, renderer, 'backdrop-plane', {"start":0,"duration":3}, {"width":7,"height":4,"yPosition":-0.2,"rotationX":-1.0471975511965976,"color":16777215,"roughness":0.12,"transmission":0.88,"ior":1.45,"opacity":0.7}, {}, tokens, prng);
+              if (hook && hook.update) updateHooks.push(hook.update);
+            }
+          })();
+        
+
+        window.__threeRender = function(time, frameIndex) {
+          for (let i = 0; i < updateHooks.length; i++) {
+            updateHooks[i](time, frameIndex);
+          }
+          renderer.render(scene, camera);
+        };
+      </script>
+
+  <script type="module">
+    import { globalComponentRegistry } from '../../../src/components/registry.js';
+
+    const tokens = {"colors":{"background":"#07090e","surface":"rgba(255, 255, 255, 0.04)","surfaceBorder":"rgba(255, 255, 255, 0.1)","textPrimary":"#f8fafc","textSecondary":"#94a3b8","textMuted":"#64748b","primary":"#4f46e5","accent":"#06b6d4","highlight":"#38bdf8","success":"#10b981","warning":"#f59e0b","danger":"#ef4444"},"typography":{"fontDisplay":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif","fontBody":"-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif","fontMono":"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace","sizeHero":"76px","sizeHeadline":"56px","sizeTitle":"36px","sizeBody":"20px","sizeCaption":"14px","weightHero":"800","weightHeadline":"700","weightTitle":"600","weightBody":"400","weightCaption":"500","letterSpacingHero":"-0.03em","letterSpacingHeadline":"-0.02em","letterSpacingTitle":"-0.01em","letterSpacingCaption":"0.12em"},"surfaces":{"glassBlur":"16px","glassBg":"rgba(255, 255, 255, 0.03)","glassBorder":"1px solid rgba(255, 255, 255, 0.12)","radiusSm":"8px","radiusMd":"16px","radiusLg":"24px","radiusFull":"9999px","shadowElevated":"0 20px 40px -15px rgba(0, 0, 0, 0.5)","glowCyan":"0 0 30px rgba(6, 182, 212, 0.3)","glowIndigo":"0 0 40px rgba(79, 70, 229, 0.35)"},"motion":{"durationMicro":0.25,"durationShort":0.5,"durationMedium":0.8,"durationLong":1.2,"durationCinematic":2,"easeDecel":"power3.out","easeAccel":"power3.in","easeSmooth":"power2.inOut","easeDramatic":"expo.out","easeSnappy":"back.out(1.4)","staggerFast":0.04,"staggerMedium":0.08,"staggerRelaxed":0.12},"lighting":{"ambientColor":"#0a101d","ambientIntensity":2,"keyColor":"#ffffff","keyIntensity":4,"fillColor":"#06b6d4","fillIntensity":5,"rimColor":"#6366f1","rimIntensity":7},"camera":{"fov":45,"near":0.1,"far":100,"defaultStyle":"cinematic-orbit"},"preset":"modern-saas"};
+    const tl = gsap.timeline({ paused: true });
+
+    // Ambient background entrance
+    tl.fromTo('#ambientGlow', 
+      { scale: 0.9, opacity: 0.5 },
+      { scale: 1.25, opacity: 0.85, duration: 2.7, ease: 'sine.out' },
+      0.0
+    );
+
+    // Injected component GSAP builders
+    
+
+    // HyperFrames and Universal Seek Hooks
+    window.__timelines = window.__timelines || {};
+    window.__timelines['main'] = tl;
+    window.__timelines['bm-05-3d-abstract-visual'] = tl;
+
+    window.renderFrame = function(timeInSeconds, frameIndex) {
+      tl.seek(timeInSeconds, false);
+      if (window.__threeRender) {
+        window.__threeRender(timeInSeconds, frameIndex);
+      }
+      return true;
+    };
+
+    // Auto-preview loop in standard browser window
+    if (!window.navigator.userAgent.includes('HeadlessChrome')) {
+      let startTime = null;
+      function previewLoop(now) {
+        if (!startTime) startTime = now;
+        const elapsed = ((now - startTime) / 1000) % 3;
+        window.renderFrame(elapsed, Math.round(elapsed * 60));
+        requestAnimationFrame(previewLoop);
+      }
+      requestAnimationFrame(previewLoop);
+    }
+  </script>
+</body>
+</html>

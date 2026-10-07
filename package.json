@@ -1,0 +1,28 @@
+{
+  "name": "motion-studio",
+  "version": "0.1.0",
+  "description": "AI-driven capability-based deterministic motion graphics SaaS engine",
+  "type": "module",
+  "scripts": {
+    "test": "node tests/determinism.test.js && node tests/render-pipeline.test.js && node tests/visual-qa.test.js && node tests/reels.test.js && node tests/reel-determinism.test.js && node tests/autonomous-workflow.test.js",
+    "test:agents": "node tests/autonomous-workflow.test.js",
+    "workflow": "node tools/autonomous_workflow.js",
+    "render:2d": "node scripts/render.js --scene examples/2d-brand-launch/index.html --output render-tests/2d-brand-launch.mp4 --fps 60 --duration 3",
+    "render:3d": "node scripts/render.js --scene examples/3d-procedural-stage/index.html --output render-tests/3d-procedural-stage.mp4 --fps 60 --duration 3",
+    "inspect": "node scripts/inspect.js --snapshots render-tests/snapshots"
+  },
+  "dependencies": {
+    "gsap": "3.15.0",
+    "three": "0.186.0"
+  },
+  "devDependencies": {
+    "hyperframes": "0.8.40",
+    "pixelmatch": "7.2.0",
+    "pngjs": "7.0.0",
+    "puppeteer-core": "25.11.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "private": true
+}

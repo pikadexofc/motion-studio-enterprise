@@ -1,0 +1,46 @@
+{
+  "$schema": "https://motionstudio.ai/schemas/scene-v1.json",
+  "id": "var-01-cyber-neon",
+  "version": "1.0.0",
+  "meta": { "title": "Variant 1: Cyber Neon", "seed": 1001 },
+  "canvas": { "width": 1920, "height": 1080, "fps": 60, "duration": 3.0, "aspectRatio": "16:9" },
+  "brand": { "preset": "cyber-neon" },
+  "components": [
+    {
+      "type": "LightingRig",
+      "id": "lights",
+      "layer": "3d-webgl",
+      "timing": { "start": 0.0, "duration": 3.0 },
+      "parameters": { "fillColor": 61695, "rimColor": 15485081 }
+    },
+    {
+      "type": "OrbitalCamera",
+      "id": "cam",
+      "layer": "3d-webgl",
+      "timing": { "start": 0.0, "duration": 3.0 },
+      "parameters": { "orbitSpeed": 0.45, "initialZ": 5.0 }
+    },
+    {
+      "type": "ProceduralArtifact",
+      "id": "artifact",
+      "layer": "3d-webgl",
+      "timing": { "start": 0.0, "duration": 3.0 },
+      "parameters": { "outerShape": "octahedron", "floatSpeed": 2.2, "rotationSpeedX": 0.8 }
+    },
+    {
+      "type": "BrandBadge",
+      "id": "badge",
+      "layer": "2d-dom",
+      "timing": { "start": 0.1, "duration": 0.7 },
+      "parameters": { "text": "CYBER EDGE", "accentColor": "#00f0ff" }
+    },
+    {
+      "type": "TextReveal",
+      "id": "headline",
+      "layer": "2d-dom",
+      "timing": { "start": 0.3, "duration": 1.2 },
+      "parameters": { "text": "High Velocity Real-Time Computing", "variant": "hero", "gradient": true },
+      "motion": { "intensity": "energetic", "ease": "expo.out" }
+    }
+  ]
+}
