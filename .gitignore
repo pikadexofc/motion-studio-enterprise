@@ -12,6 +12,7 @@ render-tests/*.png
 render-tests/desktop.ini
 render-tests/snapshots/
 render-tests/brag-preview/
+render-tests/first-frames/
 render-tests/preview/
 *.mp4
 *.zip
